@@ -24,16 +24,17 @@ table 60100 "Car Store Information"
             end;
         }
 
-        field(2; "Car Brand"; Text[50])
+        field(2; "Car Brand"; Text[20])
         {
             Caption = 'Car Brand';
             DataClassification = ToBeClassified;
+            TableRelation = "Car Brand Table".Make;
         }
-
-        field(3; "Car Model"; Text[50])
+        field(3; "Car Model"; Text[30])
         {
             Caption = 'Car Model';
             DataClassification = ToBeClassified;
+            TableRelation = "Car Model Table".Model;
         }
 
         field(4; Year; Integer)
@@ -89,36 +90,38 @@ table 60100 "Car Store Information"
         {
             Caption = 'Model Variant';
             DataClassification = ToBeClassified;
+            TableRelation = "Model Variant Table"."Model Variant";
         }
 
-        field(13; "Price"; Integer)
+        field(13; "Drive Type"; enum "Drive Type")
         {
-            Caption = 'Price Per Day';
+            Caption = 'Drive Type';
             DataClassification = ToBeClassified;
         }
 
-        field(14; "No"; Integer)
+        field(14; "Price"; Integer)
         {
-            Caption = 'No.';
+            Caption = 'Price Per Day (£)';
             DataClassification = ToBeClassified;
-
         }
 
-
+        field(15; "Engine Power"; Integer)
+        {
+            Caption = 'Engine Power (BHP)';
+            DataClassification = ToBeClassified;
+        }
     }
-
     keys
     {
-        key(Key1; "Vehicle Identification No.")
+        key(Key1; "Vehicle Identification No.", "Car Brand", "Car Model", "Model Variant")
         {
             Clustered = true;
         }
     }
 
-    fieldgroups
-    {
-        // Add changes to field groups here
-    }
+
+
+
 
 
 

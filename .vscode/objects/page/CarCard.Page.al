@@ -5,6 +5,7 @@ page 60101 "Car Card"
     UsageCategory = Administration;
     SourceTable = "Car Store Information";
 
+
     layout
     {
         area(Content)
@@ -54,12 +55,22 @@ page 60101 "Car Card"
                     ApplicationArea = ALl;
                 }
 
+                field("Drive Type"; Rec."Drive Type")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Colour; Rec.Colour)
                 {
                     ApplicationArea = All;
                 }
 
                 field("Engine Size"; Rec."Engine Size")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Engine Power"; Rec."Engine Power")
                 {
                     ApplicationArea = All;
                 }
@@ -83,13 +94,15 @@ page 60101 "Car Card"
         }
         area(FactBoxes)
         {
-            part("Attached Documents"; "Document Attachment Factbox")
-            {
-                Caption = 'Attachments';
-                ApplicationArea = All;
-                // SubPageLink = "No" = const(Database::"Car Store Information"),
-                //               "No." = field("Vehicle Identification No.");
 
+            systempart(Links; Links)
+            {
+
+                ApplicationArea = All;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = All;
             }
         }
     }

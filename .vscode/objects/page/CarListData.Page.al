@@ -40,12 +40,22 @@ page 60100 "Car List Data"
                     ApplicationArea = ALl;
                 }
 
+                field("Drive Type"; Rec."Drive Type")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Colour; Rec.Colour)
                 {
                     ApplicationArea = All;
                 }
 
                 field("Engine Size"; Rec."Engine Size")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Engine Power"; Rec."Engine Power")
                 {
                     ApplicationArea = All;
                 }
@@ -83,9 +93,17 @@ page 60100 "Car List Data"
 
             }
         }
-        area(Factboxes)
-        {
 
+        area(FactBoxes)
+        {
+            systempart(Links; Links)
+            {
+                ApplicationArea = All;
+            }
+            systempart(Notes; Notes)
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
