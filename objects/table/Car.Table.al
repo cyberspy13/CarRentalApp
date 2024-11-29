@@ -1,38 +1,35 @@
-table 60100 "Car Store Information"
+table 60100 Car
 {
+    Caption = 'Car';
     DataClassification = ToBeClassified;
-    Caption = 'Car Information Table';
 
     fields
     {
-        field(1; "Vehicle Identification No."; Code[17])
+        field(1; "Vehicle ID No."; Code[17])
         {
-            Caption = 'Vehicle Identification No.(VIN)';
+            Caption = 'Vehicle ID No.';
             DataClassification = ToBeClassified;
             NotBlank = true;
 
             trigger OnValidate()
             var
-                VINErrMessage: Label 'The lenght of the VIN no. should be no less then 17 characters';
-                VIN: Code[17];
-                Lenght: Integer;
+                VINErrMessage: Label 'The length of the Vehicle ID No. should be no less then 17 characters.';
             begin
-                VIN := rec."Vehicle Identification No.";
-                Lenght := StrLen(VIN);
-                If Lenght <> 17 then
+                if StrLen("Vehicle ID No.") <> 17 then
                     Error(VINErrMessage);
             end;
         }
 
-        field(2; "Car Brand"; Text[20])
+        field(2; Brand; Text[20])
         {
-            Caption = 'Car Brand';
+            Caption = 'Brand';
             DataClassification = ToBeClassified;
             TableRelation = "Car Brand Table".Make;
         }
-        field(3; "Car Model"; Text[30])
+
+        field(3; Model; Text[30])
         {
-            Caption = 'Car Model';
+            Caption = 'Model';
             DataClassification = ToBeClassified;
             TableRelation = "Car Model Table".Model;
         }
@@ -41,6 +38,8 @@ table 60100 "Car Store Information"
         {
             Caption = 'Year';
             DataClassification = ToBeClassified;
+            BlankZero = true;
+            MinValue = 0;
         }
 
         field(5; Colour; Text[20])
@@ -53,6 +52,7 @@ table 60100 "Car Store Information"
         {
             Caption = 'Engine Size';
             DataClassification = ToBeClassified;
+            DecimalPlaces = 1 : 1;
         }
 
         field(7; "Gearbox"; Enum "Gearbox")
@@ -99,9 +99,9 @@ table 60100 "Car Store Information"
             DataClassification = ToBeClassified;
         }
 
-        field(14; "Price"; Integer)
+        field(14; "Price per Day"; Integer)
         {
-            Caption = 'Price Per Day (£)';
+            Caption = 'Price per Day (£)';
             DataClassification = ToBeClassified;
         }
 
@@ -111,18 +111,12 @@ table 60100 "Car Store Information"
             DataClassification = ToBeClassified;
         }
     }
+
     keys
     {
-        key(Key1; "Vehicle Identification No.", "Car Brand", "Car Model", "Model Variant")
+        key(Key1; "Vehicle ID No.")
         {
             Clustered = true;
         }
     }
-
-
-
-
-
-
-
 }

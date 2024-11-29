@@ -2,22 +2,27 @@ page 60101 "Car Card"
 {
     PageType = Card;
     ApplicationArea = All;
-    UsageCategory = Administration;
-    SourceTable = "Car Store Information";
-
+    SourceTable = Car;
 
     layout
     {
         area(Content)
         {
-            group("Basic Car information")
+            group(General)
             {
-                field("Car Brand"; Rec."Car Brand")
+                Caption = 'General';
+
+                field("Vehicle ID No."; Rec."Vehicle ID No.")
+                {
+                    ApplicationArea = ALl;
+                }
+
+                field(Brand; Rec.Brand)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Car Model"; Rec."Car Model")
+                field(Model; Rec.Model)
                 {
                     ApplicationArea = All;
                 }
@@ -35,14 +40,6 @@ page 60101 "Car Card"
                 field("Fuel Type"; Rec."Fuel Type")
                 {
                     ApplicationArea = All;
-                }
-
-            }
-            group("Additional Car Specification")
-            {
-                field(VIN; Rec."Vehicle Identification No.")
-                {
-                    ApplicationArea = ALl;
                 }
 
                 field(Gearbox; Rec.Gearbox)
@@ -85,43 +82,24 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
 
-                field(Price; Rec.Price)
+                field(Price; Rec."Price per Day")
                 {
                     ApplicationArea = All;
                 }
-
             }
         }
+
         area(FactBoxes)
         {
-
             systempart(Links; Links)
             {
-
                 ApplicationArea = All;
             }
+
             systempart(Notes; Notes)
             {
                 ApplicationArea = All;
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
-
-    var
-        myInt: Integer;
 }

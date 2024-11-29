@@ -1,13 +1,12 @@
-page 60100 "Car List Data"
+page 60100 "Car List"
 {
-    Caption = 'Car Rental List';
+    Caption = 'Car List';
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Car Store Information";
+    SourceTable = Car;
     Editable = false;
     CardPageId = "Car Card";
-
 
     layout
     {
@@ -15,17 +14,17 @@ page 60100 "Car List Data"
         {
             repeater(General)
             {
-                field(VIN; Rec."Vehicle Identification No.")
+                field("Vehicle ID No."; Rec."Vehicle ID No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Car Brand"; Rec."Car Brand")
+                field(Brand; Rec.Brand)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Car Model"; Rec."Car Model")
+                field(Model; Rec.Model)
                 {
                     ApplicationArea = All;
                 }
@@ -85,12 +84,10 @@ page 60100 "Car List Data"
                     ApplicationArea = All;
                 }
 
-                field(Price; Rec.Price)
+                field(Price; Rec."Price per Day")
                 {
                     ApplicationArea = All;
                 }
-
-
             }
         }
 
@@ -100,24 +97,10 @@ page 60100 "Car List Data"
             {
                 ApplicationArea = All;
             }
+
             systempart(Notes; Notes)
             {
                 ApplicationArea = All;
-            }
-        }
-    }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-
-                trigger OnAction()
-                begin
-
-                end;
             }
         }
     }
