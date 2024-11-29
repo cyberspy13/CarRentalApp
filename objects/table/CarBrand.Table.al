@@ -1,21 +1,27 @@
-table 60101 "Car Brand Table"
+table 60101 "Car Brand"
 {
-    Caption = 'Car Brand Table';
+    Caption = 'Car Brand';
     DataClassification = ToBeClassified;
-    LookupPageId = "Car Brand Page";
+    LookupPageId = "Car Brands";
 
     fields
     {
-        field(2; Make; Text[20])
+        field(1; Code; Code[20])
         {
-            Caption = 'Make';
+            Caption = 'Code';
+            DataClassification = ToBeClassified;
+        }
+
+        field(2; Description; Text[50])
+        {
+            Caption = 'Description';
             DataClassification = ToBeClassified;
         }
     }
 
     keys
     {
-        key(PK; Make)
+        key(Key1; Code)
         {
             Clustered = true;
         }

@@ -1,9 +1,10 @@
-page 60103 "Car Model Page"
+page 60103 "Car Models"
 {
-    PageType = Card;
+    Caption = 'Car Models';
+    PageType = List;
     ApplicationArea = All;
-    UsageCategory = Administration;
-    SourceTable = "Car Model Table";
+    UsageCategory = Lists;
+    SourceTable = "Car Model";
 
     layout
     {
@@ -11,15 +12,16 @@ page 60103 "Car Model Page"
         {
             repeater(General)
             {
-                field(Model; Rec.Model)
+                field(Code; Rec.Code)
+                {
+                    ApplicationArea = All;
+                }
+
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
             }
         }
-
     }
-
-
-
 }

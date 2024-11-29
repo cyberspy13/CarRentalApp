@@ -20,18 +20,18 @@ table 60100 Car
             end;
         }
 
-        field(2; Brand; Text[20])
+        field(2; Brand; Code[20])
         {
             Caption = 'Brand';
             DataClassification = ToBeClassified;
-            TableRelation = "Car Brand Table".Make;
+            TableRelation = "Car Brand".Code;
         }
 
-        field(3; Model; Text[30])
+        field(3; Model; Code[20])
         {
             Caption = 'Model';
             DataClassification = ToBeClassified;
-            TableRelation = "Car Model Table".Model;
+            TableRelation = "Car Model".Code;
         }
 
         field(4; Year; Integer)
@@ -86,11 +86,10 @@ table 60100 Car
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Model Variant"; Text[100])
+        field(12; "Model Variant"; Text[50])
         {
             Caption = 'Model Variant';
             DataClassification = ToBeClassified;
-            TableRelation = "Model Variant Table"."Model Variant";
         }
 
         field(13; "Drive Type"; enum "Drive Type")
