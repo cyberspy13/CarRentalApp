@@ -38,5 +38,4 @@ enum 60101 "Body Type"
     {
         Caption = 'SUV';
     }
-
 }

@@ -1,51 +1,30 @@
-page 60101 "Car Card"
+page 60100 "Car List"
 {
-    PageType = Card;
+    Caption = 'Car List';
+    PageType = List;
     ApplicationArea = All;
-    UsageCategory = Administration;
-    SourceTable = "Car Store Information";
-
+    UsageCategory = Lists;
+    SourceTable = Car;
+    Editable = false;
+    CardPageId = "Car Card";
 
     layout
     {
         area(Content)
         {
-            group("Basic Car information")
+            repeater(General)
             {
-                field("Car Brand"; Rec."Car Brand")
+                field("Vehicle ID No."; Rec."Vehicle ID No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Car Model"; Rec."Car Model")
+                field(Brand; Rec.Brand)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Model Variant"; Rec."Model Variant")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Body Type"; Rec."Body Type")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Fuel Type"; Rec."Fuel Type")
-                {
-                    ApplicationArea = All;
-                }
-
-            }
-            group("Additional Car Specification")
-            {
-                field(VIN; Rec."Vehicle Identification No.")
-                {
-                    ApplicationArea = ALl;
-                }
-
-                field(Gearbox; Rec.Gearbox)
+                field(Model; Rec.Model)
                 {
                     ApplicationArea = All;
                 }
@@ -75,7 +54,17 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
 
-                field(Doors; Rec.Seats)
+                field(Gearbox; Rec.Gearbox)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Body Type"; Rec."Body Type")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Fuel Type"; Rec."Fuel Type")
                 {
                     ApplicationArea = All;
                 }
@@ -85,43 +74,29 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
 
-                field(Price; Rec.Price)
+                field(Doors; Rec.Seats)
                 {
                     ApplicationArea = All;
                 }
 
+                field(Price; Rec."Price per Day")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
+
         area(FactBoxes)
         {
-
             systempart(Links; Links)
             {
-
                 ApplicationArea = All;
             }
+
             systempart(Notes; Notes)
             {
                 ApplicationArea = All;
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
-
-    var
-        myInt: Integer;
 }
