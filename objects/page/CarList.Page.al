@@ -29,11 +29,6 @@ page 60100 "Car List"
                     ApplicationArea = All;
                 }
 
-                field("Model Variant"; Rec."Model Variant")
-                {
-                    ApplicationArea = All;
-                }
-
                 field(Year; Rec.Year)
                 {
                     ApplicationArea = ALl;

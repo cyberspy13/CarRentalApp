@@ -27,11 +27,6 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
 
-                field("Model Variant"; Rec."Model Variant")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Body Type"; Rec."Body Type")
                 {
                     ApplicationArea = All;

@@ -86,12 +86,6 @@ table 60100 Car
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Model Variant"; Text[50])
-        {
-            Caption = 'Model Variant';
-            DataClassification = ToBeClassified;
-        }
-
         field(13; "Drive Type"; enum "Drive Type")
         {
             Caption = 'Drive Type';
