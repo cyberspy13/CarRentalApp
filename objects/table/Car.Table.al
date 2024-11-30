@@ -40,6 +40,25 @@ table 60100 Car
             DataClassification = ToBeClassified;
             BlankZero = true;
             MinValue = 0;
+
+            trigger OnVAlidate()
+            var
+                FutureYearMsg: Label 'The year is in the future. Please enter a valid past or current.';
+                CurrentYear: Integer;
+                PastYearMsg: Label 'The year is too far in history to be valid for modern cars. Please enter a valid car production year.';
+                PastNotValidYear: Integer;
+            begin
+                CurrentYear := Date2DMY(Today(), 3);
+                if Rec.Year > CurrentYear then begin
+                    Message(FutureYearMsg);
+                end;
+                PastNotValidYear := 1980;
+                if Rec.Year < PastNotValidYear then begin
+                    Message(PastYearMsg);
+                end
+            end;
+
+
         }
 
         field(5; Colour; Text[20])
@@ -78,9 +97,11 @@ table 60100 Car
             Caption = 'Mileage';
             DataClassification = ToBeClassified;
             Editable = false;
+            BlankZero = true;
+            MinValue = 0;
         }
 
-        field(11; "Seats"; Enum "Seats")
+        field(11; "Seats"; Integer)
         {
             Caption = 'Seats';
             DataClassification = ToBeClassified;
@@ -94,7 +115,7 @@ table 60100 Car
 
         field(14; "Price per Day"; Integer)
         {
-            Caption = 'Price per Day (£)';
+            Caption = 'Price per Day';
             DataClassification = ToBeClassified;
         }
 
@@ -102,6 +123,8 @@ table 60100 Car
         {
             Caption = 'Engine Power (BHP)';
             DataClassification = ToBeClassified;
+            BlankZero = true;
+            MinValue = 0;
         }
     }
 
