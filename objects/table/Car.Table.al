@@ -3,6 +3,7 @@ table 60100 Car
     Caption = 'Car';
     DataClassification = ToBeClassified;
 
+
     fields
     {
         field(1; "Vehicle ID No."; Code[17])
@@ -50,11 +51,11 @@ table 60100 Car
             begin
                 CurrentYear := Date2DMY(Today(), 3);
                 if Rec.Year > CurrentYear then begin
-                    Message(FutureYearMsg);
+                    Error(FutureYearMsg);
                 end;
                 PastNotValidYear := 1980;
                 if Rec.Year < PastNotValidYear then begin
-                    Message(PastYearMsg);
+                    Error(PastYearMsg);
                 end
             end;
 

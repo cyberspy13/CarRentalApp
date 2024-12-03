@@ -82,7 +82,12 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
             }
+            part("Car Mileage Subform"; "Car Mileage Subform")
+            {
+                ApplicationArea = Basic, Suite;
+            }
         }
+
 
         area(FactBoxes)
         {
