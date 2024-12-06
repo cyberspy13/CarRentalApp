@@ -129,6 +129,7 @@ table 60100 Car
         }
     }
 
+
     keys
     {
         key(Key1; "Vehicle ID No.")

@@ -81,13 +81,17 @@ page 60101 "Car Card"
                 {
                     ApplicationArea = All;
                 }
+
             }
 
             part("Car Mileage Subform"; "Car Mileage Subform")
             {
                 ApplicationArea = Basic, Suite;
                 SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
+
+
             }
+
         }
 
         area(FactBoxes)
@@ -100,6 +104,34 @@ page 60101 "Car Card"
             systempart(Notes; Notes)
             {
                 ApplicationArea = All;
+            }
+        }
+
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action("Update Mileage")
+            {
+                Caption = 'Update Mileage';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = Track;
+
+                trigger OnAction()
+                var
+                    MileageUpdateReport: Report "Mileage Update";
+                begin
+                    MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
+                    MileageUpdateReport.Run();
+
+
+                end;
+
+
             }
         }
     }

@@ -4,26 +4,31 @@ table 60104 "Car Mileage"
     DataClassification = ToBeClassified;
     LookupPageId = "Car Mileage Subform";
 
+
     fields
     {
         field(1; "Entry No."; Integer)
         {
             Caption = 'Entry No.';
             DataClassification = ToBeClassified;
+            AutoIncrement = false;
         }
 
         field(2; "Vehicle ID No."; Code[17])
         {
             Caption = 'Vehicle ID No.';
             DataClassification = ToBeClassified;
-            TableRelation = Car."Vehicle ID No.";
-            NotBlank = true;
+            //NotBlank = true;
+
+
+
         }
 
         field(3; "Date"; Date)
         {
             Caption = 'Date';
-            DataClassification = ToBeClassified;
+            DataClassification = SystemMetadata;
+            Editable = true;
         }
 
         field(4; "Start Mileage"; Integer)
@@ -68,13 +73,6 @@ table 60104 "Car Mileage"
             NotBlank = true;
             TableRelation = User."User Name";
             ValidateTableRelation = false;
-
-            // trigger OnValidate()
-            // var
-            //     UserSelection: Codeunit "User Selection";
-            // begin
-            //     UserSelection.ValidateUserName("User ID");
-            // end;
         }
     }
 
@@ -85,8 +83,12 @@ table 60104 "Car Mileage"
             Clustered = true;
         }
 
-        key(Key2; "Vehicle ID No.") { }
+        // key(Key2; "Vehicle ID No.")
+        // {
+
+        // }
     }
+
 
     local procedure CheckMileage()
     var
@@ -101,4 +103,10 @@ table 60104 "Car Mileage"
         else
             Rec."Difference" := Rec."End Mileage" - Rec."Start Mileage";
     end;
+
+    procedure GetNewVehicleIdNo(newVinNo: Code[17])
+    begin
+        "Vehicle ID No." := newVinNo;
+    end;
+
 }

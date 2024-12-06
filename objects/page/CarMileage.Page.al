@@ -6,8 +6,8 @@ page 60104 "Car Mileage Subform"
     UsageCategory = Lists;
     SourceTable = "Car Mileage";
     // Editable = false;
-    InsertAllowed = false; // temporary
-    ModifyAllowed = false; // temporary
+    InsertAllowed = true; // temporary
+    ModifyAllowed = true; // temporary
 
     layout
     {
@@ -50,6 +50,8 @@ page 60104 "Car Mileage Subform"
                     ApplicationArea = All;
                 }
             }
+
         }
+
     }
 }
