@@ -20,11 +20,6 @@ page 60104 "Car Mileage Subform"
                     ApplicationArea = All;
                 }
 
-                field(Date; Rec.Date)
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Start Mileage"; Rec."Start Mileage")
                 {
                     ApplicationArea = All;
@@ -40,6 +35,11 @@ page 60104 "Car Mileage Subform"
                     ApplicationArea = All;
                 }
 
+                field(Date; Rec.Date)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("User ID"; Rec."User ID")
                 {
                     ApplicationArea = All;
@@ -49,6 +49,7 @@ page 60104 "Car Mileage Subform"
                 {
                     ApplicationArea = All;
                 }
+
             }
 
         }

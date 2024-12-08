@@ -124,6 +124,7 @@ page 60101 "Car Card"
                 trigger OnAction()
                 var
                     MileageUpdateReport: Report "Mileage Update";
+                    EndMileageUpdateRec: Record "Car Mileage";
                 begin
                     MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
                     MileageUpdateReport.Run();

@@ -11,17 +11,14 @@ table 60104 "Car Mileage"
         {
             Caption = 'Entry No.';
             DataClassification = ToBeClassified;
-            AutoIncrement = false;
+            //AutoIncrement = false;
+
         }
 
         field(2; "Vehicle ID No."; Code[17])
         {
             Caption = 'Vehicle ID No.';
             DataClassification = ToBeClassified;
-            //NotBlank = true;
-
-
-
         }
 
         field(3; "Date"; Date)
@@ -81,16 +78,16 @@ table 60104 "Car Mileage"
         key(Key1; "Entry No.")
         {
             Clustered = true;
+
         }
 
-        // key(Key2; "Vehicle ID No.")
-        // {
+        key(Key2; "Vehicle ID No.")
+        {
 
-        // }
+        }
     }
 
-
-    local procedure CheckMileage()
+    procedure CheckMileage()
     var
         ErrMsg: Label 'End mileage value must be greater than Start Mileage';
     begin
@@ -102,11 +99,6 @@ table 60104 "Car Mileage"
             Error(ErrMsg)
         else
             Rec."Difference" := Rec."End Mileage" - Rec."Start Mileage";
-    end;
-
-    procedure GetNewVehicleIdNo(newVinNo: Code[17])
-    begin
-        "Vehicle ID No." := newVinNo;
     end;
 
 }
