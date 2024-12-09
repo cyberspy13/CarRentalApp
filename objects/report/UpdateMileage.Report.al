@@ -4,27 +4,8 @@ report 60100 "Mileage Update"
     Caption = 'Mileage Update';
     UsageCategory = Tasks;
     ProcessingOnly = true;
-    dataset
-    {
-        dataitem(CarMileage; "Car Mileage")
-        {
-            trigger OnPreDataItem()
-            begin
-            end;
-
-            trigger OnAfterGetRecord()
-            begin
-            end;
-
-            trigger OnPostDataItem()
-            begin
-                Message('Vehicle mileage record has been updated');
-            end;
-        }
-    }
     requestpage
     {
-        //SaveValues = true;
         layout
         {
             area(Content)
@@ -43,6 +24,7 @@ report 60100 "Mileage Update"
                     {
                         Caption = 'Start Mileage';
                         ApplicationArea = All;
+                        Editable = false;
                     }
 
                     field(EndMileage; EndMileage)
@@ -62,19 +44,21 @@ report 60100 "Mileage Update"
                         ApplicationArea = All;
                         NotBlank = true;
                         Editable = false;
-                        //HideValue = true;
-                    }
-                    field(EntryNo; EntryNo)
-                    {
-                        Caption = 'Entry No.';
-                        ApplicationArea = All;
-                        //NotBlank = true;
-                        Editable = true;
-                        //HideValue = true;
+
                     }
                 }
             }
         }
+        trigger OnOpenPage()
+        begin
+            CarMileageRec.SetRange("Vehicle ID No.", VehicleIdNo);
+            if CarMileageRec.FindLast() then begin
+                StartMileage := CarMileageRec."End Mileage";
+            end else begin
+                StartMileage := 0;
+            end;
+        end;
+
     }
     var
         CarCardRec: record Car;
@@ -87,36 +71,27 @@ report 60100 "Mileage Update"
         EntryNo: Integer;
 
     trigger OnInitReport()
-    var
-        CarMileageRec: Record "Car Mileage";
     begin
         CurrentDate := Today();
         SetDefaultUserId();
 
-        //CarMileageRec.Get(CarMileageRec."Vehicle ID No.").  
-
-        CarMileageRec.Reset();
-        CarMileageRec.SetCurrentKey("Entry No.");
-        //GetEntryNoAndEndMileage();
-
-        if CarMileageRec.FindLast() then begin
-            EntryNo := CarMileageRec."Entry No." + 1;
-            StartMileage := CarMileageRec."End Mileage";
-        end else begin
-            EntryNo := 1;
-            StartMileage := 0;
-        end;
     end;
 
     trigger OnPreReport()
     begin
-
     end;
 
     trigger OnPostReport()
-    var
-
     begin
+        CarMileageRec.Reset();
+        //CarMileageRec.DeleteAll();
+        //exit;
+        if CarMileageRec.FindLast() then begin
+            EntryNo := CarMileageRec."Entry No." + 1;
+        end else
+            EntryNo := 1;
+
+        CarMileageRec.Init();
 
         CarMileageRec."Vehicle ID No." := VehicleIdNo;
         CarMileageRec."Start Mileage" := StartMileage;
@@ -141,16 +116,8 @@ report 60100 "Mileage Update"
         UserId := UserId();
     end;
 
-    procedure GetEntryNoAndEndMileage()
-    begin
-        if CarMileageRec.FindLast() then begin
-            EntryNo := CarMileageRec."Entry No." + 1;
-            StartMileage := CarMileageRec."End Mileage";
-        end else begin
-            EntryNo := 1;
-            StartMileage := 0;
-        end;
-    end;
+
+
 
 
 

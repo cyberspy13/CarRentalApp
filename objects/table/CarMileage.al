@@ -11,7 +11,7 @@ table 60104 "Car Mileage"
         {
             Caption = 'Entry No.';
             DataClassification = ToBeClassified;
-            //AutoIncrement = false;
+            Editable = false;
 
         }
 
@@ -72,7 +72,6 @@ table 60104 "Car Mileage"
             ValidateTableRelation = false;
         }
     }
-
     keys
     {
         key(Key1; "Entry No.")
@@ -86,7 +85,6 @@ table 60104 "Car Mileage"
 
         }
     }
-
     procedure CheckMileage()
     var
         ErrMsg: Label 'End mileage value must be greater than Start Mileage';
