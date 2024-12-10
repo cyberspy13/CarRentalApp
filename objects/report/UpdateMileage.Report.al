@@ -13,13 +13,12 @@ report 60100 "Mileage Update"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(VehicleIdNo; VehicleIdNo)
+                    field(CurrentDate; CurrentDate)
                     {
-                        Caption = 'Vehicle ID No.';
+                        Caption = 'Date';
                         ApplicationArea = All;
-                        NotBlank = true;
-                        Editable = false;
                     }
+
                     field(StartMileage; StartMileage)
                     {
                         Caption = 'Start Mileage';
@@ -33,18 +32,12 @@ report 60100 "Mileage Update"
                         ApplicationArea = All;
                     }
 
-                    field(CurrentDate; CurrentDate)
-                    {
-                        Caption = 'Date';
-                        ApplicationArea = All;
-                    }
                     field(UserId; UserId)
                     {
                         Caption = 'User ID';
                         ApplicationArea = All;
                         NotBlank = true;
                         Editable = false;
-
                     }
                 }
             }

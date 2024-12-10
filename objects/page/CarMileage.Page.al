@@ -15,7 +15,7 @@ page 60104 "Car Mileage Subform"
         {
             repeater(General)
             {
-                field("Vehicle ID No."; Rec."Vehicle ID No.")
+                field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
@@ -31,11 +31,6 @@ page 60104 "Car Mileage Subform"
                 }
 
                 field(Difference; Rec.Difference)
-                {
-                    ApplicationArea = All;
-                }
-
-                field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
                 }

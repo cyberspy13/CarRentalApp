@@ -1,7 +1,7 @@
-page 60105 NewCarMileagePage
+page 60105 "Car Mileage Log"
 {
     ApplicationArea = All;
-    Caption = 'New Car Mileage Page';
+    Caption = 'Car Mileage Log';
     PageType = List;
     SourceTable = "Car Mileage";
     UsageCategory = Lists;
@@ -13,6 +13,10 @@ page 60105 NewCarMileagePage
         {
             repeater(General)
             {
+                field("Entry No."; Rec."Entry No.")
+                {
+                    ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
+                }
                 field("Vehicle ID No."; Rec."Vehicle ID No.")
                 {
                     ToolTip = 'Specifies the value of the Vehicle ID No. field.', Comment = '%';
@@ -37,10 +41,7 @@ page 60105 NewCarMileagePage
                 {
                     ToolTip = 'Specifies the value of the User ID field.', Comment = '%';
                 }
-                field("Entry No."; Rec."Entry No.")
-                {
-                    ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
-                }
+
             }
         }
     }
