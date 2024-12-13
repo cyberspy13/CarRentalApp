@@ -99,9 +99,9 @@ table 60100 Car
             Editable = false;
             BlankZero = true;
             MinValue = 0;
-            //TableRelation = "Car Mileage";
-            //FieldClass = FlowField;
-            //CalcFormula = Sum("Car Mileage".Difference);
+            TableRelation = "Car Mileage";
+            FieldClass = FlowField;
+            CalcFormula = max("Car Mileage"."End Mileage" where("Vehicle ID No." = field("Vehicle ID No.")));
 
         }
 
