@@ -96,10 +96,13 @@ table 60100 Car
         field(10; "Mileage"; Integer)
         {
             Caption = 'Mileage';
-            DataClassification = ToBeClassified;
             Editable = false;
             BlankZero = true;
             MinValue = 0;
+            //TableRelation = "Car Mileage";
+            //FieldClass = FlowField;
+            //CalcFormula = Sum("Car Mileage".Difference);
+
         }
 
         field(11; "Seats"; Integer)
@@ -137,4 +140,5 @@ table 60100 Car
             Clustered = true;
         }
     }
+
 }

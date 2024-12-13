@@ -94,6 +94,7 @@ page 60101 "Car Card"
 
         }
 
+
         area(FactBoxes)
         {
             systempart(Links; Links)
@@ -136,4 +137,5 @@ page 60101 "Car Card"
             }
         }
     }
+
 }

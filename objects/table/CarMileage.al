@@ -61,6 +61,7 @@ table 60104 "Car Mileage"
             BlankZero = true;
             MinValue = 0;
             Editable = false;
+
         }
 
         field(7; "User ID"; Code[50])

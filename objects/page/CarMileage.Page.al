@@ -3,7 +3,6 @@ page 60104 "Car Mileage Subform"
     Caption = 'Mileage Log';
     PageType = ListPart;
     ApplicationArea = All;
-    UsageCategory = Lists;
     SourceTable = "Car Mileage";
     Editable = false;
     //InsertAllowed = true; // temporary
@@ -50,6 +49,5 @@ page 60104 "Car Mileage Subform"
             }
 
         }
-
     }
 }

@@ -77,8 +77,6 @@ report 60100 "Mileage Update"
     trigger OnPostReport()
     begin
         CarMileageRec.Reset();
-        //CarMileageRec.DeleteAll();
-        //exit;
         if CarMileageRec.FindLast() then begin
             EntryNo := CarMileageRec."Entry No." + 1;
         end else
