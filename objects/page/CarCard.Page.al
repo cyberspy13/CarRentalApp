@@ -88,8 +88,6 @@ page 60101 "Car Card"
             {
                 ApplicationArea = Basic, Suite;
                 SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
-
-
             }
 
         }
@@ -125,17 +123,34 @@ page 60101 "Car Card"
                 trigger OnAction()
                 var
                     MileageUpdateReport: Report "Mileage Update";
-                    EndMileageUpdateRec: Record "Car Mileage";
                 begin
                     MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
                     MileageUpdateReport.Run();
-
-
                 end;
 
+            }
 
+            group(PrintSend)
+            {
+                Caption = 'Print/Send';
+                action(PrintSendCarMileage_Promoted)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Print report';
+                    Promoted = true;
+                    PromotedCategory = Report;
+
+                    trigger OnAction()
+                    var
+                        PrintCarReport: report "Print Car Report";
+                    begin
+                        Rec.SetRange("Vehicle ID No.", Rec."Vehicle ID No.");
+                        PrintCarReport.SetTableView(Rec);
+                        PrintCarReport.Run();
+                    end;
+
+                }
             }
         }
     }
-
 }

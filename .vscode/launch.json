@@ -15,7 +15,8 @@
             "enableSqlInformationDebugger": true,
             "tenant": "default",
             "usePublicURLFromServer": true,
-            "schemaUpdateMode":"ForceSync"
+            "schemaUpdateMode":"ForceSync",
+            "debugServer": 4711
         }
     ]
 }
