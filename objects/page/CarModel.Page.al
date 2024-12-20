@@ -12,6 +12,10 @@ page 60103 "Car Models"
         {
             repeater(General)
             {
+                field("Brand Code"; Rec."Brand Code")
+                {
+                    ApplicationArea = All;
+                }
                 field(Code; Rec.Code)
                 {
                     ApplicationArea = All;

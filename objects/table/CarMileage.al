@@ -94,7 +94,7 @@ table 60104 "Car Mileage"
             Rec."Difference" := Rec."End Mileage" - Rec."Start Mileage"
         else
             Rec."Difference" := 0;
-        if Rec."End Mileage" < Rec."Start Mileage" then
+        if Rec."End Mileage" <= Rec."Start Mileage" then
             Error(ErrMsg)
         else
             Rec."Difference" := Rec."End Mileage" - Rec."Start Mileage";

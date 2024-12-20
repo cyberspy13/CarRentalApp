@@ -75,6 +75,11 @@ report 60101 "Print Car Report"
             {
 
             }
+
+            column(Colour; Colour)
+            {
+
+            }
         }
     }
 

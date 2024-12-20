@@ -26,4 +26,5 @@ table 60101 "Car Brand"
             Clustered = true;
         }
     }
+
 }
