@@ -1,6 +1,6 @@
-report 60101 "Print Car Report"
+report 60101 "Print Car Report WORD"
 {
-    Caption = 'Print Car Report';
+    Caption = 'Print Car Report WORD';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     WordLayout = 'Print Car Report.docx';
@@ -25,7 +25,6 @@ report 60101 "Print Car Report"
             {
 
             }
-
 
             column(Year; Year)
             {
@@ -82,38 +81,4 @@ report 60101 "Print Car Report"
             }
         }
     }
-
-    requestpage
-    {
-        // AboutTitle = 'Teaching tip title';
-        // AboutText = 'Teaching tip content';
-        // layout
-        // {
-        //     area(Content)
-        //     {
-        //         group(GroupName)
-        //         {
-        //             field(Name; SourceExpression)
-        //             {
-
-        //             }
-        //         }
-        //     }
-        // }
-
-        actions
-        {
-            area(processing)
-            {
-                action(LayoutName)
-                {
-
-                }
-            }
-        }
-    }
-
-
-    var
-        myInt: Integer;
 }

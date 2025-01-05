@@ -141,11 +141,17 @@ page 60101 "Car Card"
 
                     trigger OnAction()
                     var
-                        PrintCarReport: report "Print Car Report";
+                        //PrintCarReportWORD: report "Print Car Report WORD";
+                        //PrintCarReportRDLC: report "Print Car Record RDLC";
+                        PrintCarReport: Report "Print Car Report";
                     begin
                         Rec.SetRange("Vehicle ID No.", Rec."Vehicle ID No.");
                         PrintCarReport.SetTableView(Rec);
                         PrintCarReport.Run();
+                        //PrintCarReportWORD.SetTableView(Rec);
+                        //PrintCarReportRDLC.SetTableView(Rec);
+                        //PrintCarReportWORD.Run();
+                        //PrintCarReportRDLC.Run();
                     end;
 
                 }

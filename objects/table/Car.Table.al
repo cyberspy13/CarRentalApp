@@ -26,7 +26,6 @@ table 60100 Car
             Caption = 'Brand';
             DataClassification = ToBeClassified;
             TableRelation = "Car Brand".Code;
-
         }
 
         field(3; Model; Code[20])
@@ -59,8 +58,6 @@ table 60100 Car
                     Error(PastYearMsg);
                 end
             end;
-
-
         }
 
         field(5; Colour; Text[20])
