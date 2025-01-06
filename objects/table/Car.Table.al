@@ -3,7 +3,6 @@ table 60100 Car
     Caption = 'Car';
     DataClassification = ToBeClassified;
 
-
     fields
     {
         field(1; "Vehicle ID No."; Code[17])
@@ -127,6 +126,12 @@ table 60100 Car
             DataClassification = ToBeClassified;
             BlankZero = true;
             MinValue = 0;
+        }
+        field(16; Currency; Enum Currency)
+        {
+            Caption = 'Currency';
+            DataClassification = ToBeClassified;
+            NotBlank = true;
         }
     }
 

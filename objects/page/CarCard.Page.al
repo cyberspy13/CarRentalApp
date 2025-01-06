@@ -81,6 +81,10 @@ page 60101 "Car Card"
                 {
                     ApplicationArea = All;
                 }
+                field(Currency; Rec.Currency)
+                {
+                    ApplicationArea = All;
+                }
 
             }
 
@@ -128,7 +132,21 @@ page 60101 "Car Card"
                 end;
 
             }
+            action("Main Driver Details")
+            {
+                Caption = 'Main driver Details';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = ViewDetails;
 
+                trigger OnAction()
+                var
+                    MainDriverDetails: Page MainDriverDetailsPage;
+                begin
+                    MainDriverDetails.Run();
+                end;
+            }
             group(PrintSend)
             {
                 Caption = 'Print/Send';
