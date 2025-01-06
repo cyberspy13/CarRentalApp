@@ -81,7 +81,15 @@ page 60101 "Car Card"
                 {
                     ApplicationArea = All;
                 }
+
             }
+
+            part("Car Mileage Subform"; "Car Mileage Subform")
+            {
+                ApplicationArea = Basic, Suite;
+                SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
+            }
+
         }
 
         area(FactBoxes)
@@ -94,6 +102,59 @@ page 60101 "Car Card"
             systempart(Notes; Notes)
             {
                 ApplicationArea = All;
+            }
+        }
+
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action("Update Mileage")
+            {
+                Caption = 'Update Mileage';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = Track;
+
+                trigger OnAction()
+                var
+                    MileageUpdateReport: Report "Mileage Update";
+                begin
+                    MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
+                    MileageUpdateReport.Run();
+                end;
+
+            }
+
+            group(PrintSend)
+            {
+                Caption = 'Print/Send';
+                action(PrintSendCarMileage_Promoted)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Print report';
+                    Promoted = true;
+                    PromotedCategory = Report;
+
+                    trigger OnAction()
+                    var
+                        //PrintCarReportWORD: report "Print Car Report WORD";
+                        //PrintCarReportRDLC: report "Print Car Record RDLC";
+                        PrintCarReport: Report "Print Car Report";
+                    begin
+                        Rec.SetRange("Vehicle ID No.", Rec."Vehicle ID No.");
+                        PrintCarReport.SetTableView(Rec);
+                        PrintCarReport.Run();
+                        //PrintCarReportWORD.SetTableView(Rec);
+                        //PrintCarReportRDLC.SetTableView(Rec);
+                        //PrintCarReportWORD.Run();
+                        //PrintCarReportRDLC.Run();
+                    end;
+
+                }
             }
         }
     }

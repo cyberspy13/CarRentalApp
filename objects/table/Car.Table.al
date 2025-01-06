@@ -3,6 +3,7 @@ table 60100 Car
     Caption = 'Car';
     DataClassification = ToBeClassified;
 
+
     fields
     {
         field(1; "Vehicle ID No."; Code[17])
@@ -31,7 +32,7 @@ table 60100 Car
         {
             Caption = 'Model';
             DataClassification = ToBeClassified;
-            TableRelation = "Car Model".Code;
+            TableRelation = "Car Model".Code where("Brand Code" = field(Brand));
         }
 
         field(4; Year; Integer)
@@ -50,15 +51,13 @@ table 60100 Car
             begin
                 CurrentYear := Date2DMY(Today(), 3);
                 if Rec.Year > CurrentYear then begin
-                    Message(FutureYearMsg);
+                    Error(FutureYearMsg);
                 end;
                 PastNotValidYear := 1980;
                 if Rec.Year < PastNotValidYear then begin
-                    Message(PastYearMsg);
+                    Error(PastYearMsg);
                 end
             end;
-
-
         }
 
         field(5; Colour; Text[20])
@@ -95,10 +94,13 @@ table 60100 Car
         field(10; "Mileage"; Integer)
         {
             Caption = 'Mileage';
-            DataClassification = ToBeClassified;
             Editable = false;
             BlankZero = true;
             MinValue = 0;
+            TableRelation = "Car Mileage";
+            FieldClass = FlowField;
+            CalcFormula = max("Car Mileage"."End Mileage" where("Vehicle ID No." = field("Vehicle ID No.")));
+
         }
 
         field(11; "Seats"; Integer)
@@ -128,6 +130,7 @@ table 60100 Car
         }
     }
 
+
     keys
     {
         key(Key1; "Vehicle ID No.")
@@ -135,4 +138,5 @@ table 60100 Car
             Clustered = true;
         }
     }
+
 }

@@ -86,6 +86,7 @@ page 60100 "Car List"
             }
         }
 
+
         area(FactBoxes)
         {
             systempart(Links; Links)
