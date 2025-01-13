@@ -132,21 +132,22 @@ page 60101 "Car Card"
                 end;
 
             }
-            action("Main Driver Details")
-            {
-                Caption = 'Main driver Details';
-                ApplicationArea = All;
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = ViewDetails;
+            // action("Main Driver Details")
+            // {
+            //     Caption = 'Main driver Details';
+            //     ApplicationArea = All;
+            //     Promoted = true;
+            //     PromotedCategory = Process;
+            //     Image = ViewDetails;
 
-                trigger OnAction()
-                var
-                    MainDriverDetails: Page MainDriverDetailsPage;
-                begin
-                    MainDriverDetails.Run();
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         MainDriverDetails: Page MainDriverDetailsPage;
+            //     begin
+
+            //         MainDriverDetails.Run();
+            //     end;
+            // }
             group(PrintSend)
             {
                 Caption = 'Print/Send';

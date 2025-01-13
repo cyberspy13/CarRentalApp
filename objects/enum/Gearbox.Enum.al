@@ -6,10 +6,12 @@ enum 60102 Gearbox
     {
         Caption = ' ';
     }
+
     value(1; "Manual")
     {
         Caption = 'Manual';
     }
+
     value(2; "Automatic")
     {
         Caption = 'Automatic';
