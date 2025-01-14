@@ -159,7 +159,6 @@ page 60107 "Outsorced Employee Card"
                 {
                     ApplicationArea = ALl;
                 }
-
             }
         }
     }

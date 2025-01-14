@@ -9,12 +9,14 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'First Name';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(2; "Last Name"; Text[50])
         {
             Caption = 'Last Name';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(3; "E-Mail"; Text[30])
@@ -27,7 +29,6 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Home Mobile Phone No.';
             DataClassification = ToBeClassified;
-            NotBlank = true;
         }
 
         field(5; "Home Post Code"; Code[20])
@@ -40,35 +41,39 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Address 2';
             DataClassification = ToBeClassified;
-            NotBlank = true;
         }
 
         field(7; "Eligible Insurance Options"; Enum "Eligible Insurance Options")
         {
             Caption = 'Eligible Insurance Options';
             DataClassification = ToBeClassified;
-            NotBlank = true;
+            //Editable = false;
         }
 
         field(8; "Home Address"; Text[70])
         {
             Caption = 'Home Address';
             DataClassification = ToBeClassified;
-            NotBlank = true;
         }
 
         field(9; "Post Code"; Code[20])
         {
             Caption = 'Post Code';
             DataClassification = ToBeClassified;
-            NotBlank = true;
         }
 
-        field(10; "Driving License No."; Code[20])
+        field(10; "Driving License No."; Code[15])
         {
             Caption = 'Driving License No.';
             DataClassification = ToBeClassified;
             NotBlank = true;
+
+            trigger OnValidate()
+            begin
+                if StrLen("Driving License No.") <> 15 then begin
+                    Error('The length of the Driving License No. should be no less then 15 characters.');
+                end;
+            end;
         }
 
         field(11; "LinkedIn Profile"; Text[50])
@@ -81,30 +86,37 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Date of Birth';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(13; "Arrival Date"; Date)
         {
             Caption = 'Arrival Date';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(14; "Departure Date"; Date)
         {
             Caption = 'Departure Date';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(15; Age; Integer)
         {
             Caption = 'Employee Age';
             DataClassification = ToBeClassified;
+            NotBlank = true;
+            BlankZero = false;
         }
 
         field(16; Salary; Integer)
         {
             Caption = 'Salary (Per Annum)';
             DataClassification = ToBeClassified;
+            NotBlank = true;
+            BlankZero = false;
         }
 
         field(17; "Home Address 2"; Text[70])
@@ -159,12 +171,14 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Job Site';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(26; "Required Car Type"; Enum "Employee Required Car Type")
         {
             Caption = 'Required Car Type';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
         field(27; Position; Text[20])
@@ -182,11 +196,65 @@ table 60103 "Outsourced Employee"
     }
     keys
     {
-        key(PK; "First Name", "Last Name")
+        key(Key1; "Driving License No.")
         {
             Clustered = true;
         }
+        // key(Key2; "First Name", "Last Name")
+        // {
+
+        // }
     }
+
+    trigger OnInsert()
+    begin
+        CheckMandatoryFields();
+    end;
+
+    trigger OnModify()
+    begin
+        CheckMandatoryFields();
+    end;
+
+    local procedure CheckMandatoryFields()
+    var
+        FirstNameErrorMessage: Label 'First Name can not be blank';
+        LastNameErrorMessage: Label 'Last Name can not be blank';
+        DateOfBirthErrorMessage: Label 'DOB can not be blank';
+        ArrivalDateErrorMessage: Label 'Arrival date must be set';
+        DepartureDateErrorMessage: Label 'Departure Date must be set';
+        SalaryErrorMessage: Label 'Salary must be specified';
+        RequiredTypeCarErrorMessage: Label 'Required Car Type field must have value';
+        JobSiteErrorType: Label 'Job Site must be set';
+
+    begin
+        if Rec."First Name" = '' then begin
+            Message(FirstNameErrorMessage);
+        end;
+        if (Rec."First Name" <> '') and (Rec."Last Name" = '') then
+            Message(LastNameErrorMessage);
+
+        if (Rec."Last Name" <> '') and ("Date of birth(DOB)" = 0D) then begin
+            Message(DateOfBirthErrorMessage)
+        end;
+        if ("Date of birth(DOB)" <> 0D) and (Rec."Arrival Date" = 0D) then begin
+            Message(ArrivalDateErrorMessage);
+        end;
+        if (Rec."Arrival Date" <> 0D) and (Rec."Departure Date" = 0D) then begin
+            Message(DepartureDateErrorMessage);
+        end;
+        if (Rec."Departure Date" <> 0D) and (Rec.Salary = ' ') then begin
+            Message(SalaryErrorMessage);
+        end;
+        if (Rec.Salary <> ' ') and (Rec."Required Car Type" = Rec."Required Car Type"::" ") then begin
+            Message(RequiredTypeCarErrorMessage);
+        end;
+        if (Rec."Required Car Type" <> Rec."Required Car Type"::" ") and (Rec."Job Site" = Rec."Job Site"::" ") then begin
+            Message(JobSiteErrorType);
+        end;
+    end;
+
+
 
 
 }
