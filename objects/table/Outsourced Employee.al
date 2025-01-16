@@ -11,7 +11,6 @@ table 60103 "Outsourced Employee"
             DataClassification = ToBeClassified;
             NotBlank = true;
         }
-
         field(2; "Last Name"; Text[50])
         {
             Caption = 'Last Name';
@@ -67,11 +66,12 @@ table 60103 "Outsourced Employee"
             Caption = 'Driving License No.';
             DataClassification = ToBeClassified;
             NotBlank = true;
-
             trigger OnValidate()
+            var
+                DrivingLicenseNoErrorMessage: Label 'The length of the Driving License No. should be exactly 15 characters.';
             begin
                 if StrLen("Driving License No.") <> 15 then begin
-                    Error('The length of the Driving License No. should be no less then 15 characters.');
+                    Message(DrivingLicenseNoErrorMessage)
                 end;
             end;
         }
@@ -108,7 +108,7 @@ table 60103 "Outsourced Employee"
             Caption = 'Employee Age';
             DataClassification = ToBeClassified;
             NotBlank = true;
-            BlankZero = false;
+            BlankZero = true;
         }
 
         field(16; Salary; Integer)
@@ -116,7 +116,7 @@ table 60103 "Outsourced Employee"
             Caption = 'Salary (Per Annum)';
             DataClassification = ToBeClassified;
             NotBlank = true;
-            BlankZero = false;
+            BlankZero = true;
         }
 
         field(17; "Home Address 2"; Text[70])
@@ -192,7 +192,6 @@ table 60103 "Outsourced Employee"
             Caption = 'Address';
             DataClassification = ToBeClassified;
         }
-
     }
     keys
     {
@@ -205,56 +204,16 @@ table 60103 "Outsourced Employee"
 
         // }
     }
-
     trigger OnInsert()
     begin
-        CheckMandatoryFields();
+        Rec.TestField("First Name");
+        Rec.TestField("Last Name");
+        Rec.TestField("Date of birth(DOB)");
+        Rec.TestField("Arrival Date");
+        Rec.TestField("Departure Date");
+        Rec.TestField(Salary);
+        Rec.TestField("Required Car Type");
+        Rec.TestField("Job Site");
     end;
-
-    trigger OnModify()
-    begin
-        CheckMandatoryFields();
-    end;
-
-    local procedure CheckMandatoryFields()
-    var
-        FirstNameErrorMessage: Label 'First Name can not be blank';
-        LastNameErrorMessage: Label 'Last Name can not be blank';
-        DateOfBirthErrorMessage: Label 'DOB can not be blank';
-        ArrivalDateErrorMessage: Label 'Arrival date must be set';
-        DepartureDateErrorMessage: Label 'Departure Date must be set';
-        SalaryErrorMessage: Label 'Salary must be specified';
-        RequiredTypeCarErrorMessage: Label 'Required Car Type field must have value';
-        JobSiteErrorType: Label 'Job Site must be set';
-
-    begin
-        if Rec."First Name" = '' then begin
-            Message(FirstNameErrorMessage);
-        end;
-        if (Rec."First Name" <> '') and (Rec."Last Name" = '') then
-            Message(LastNameErrorMessage);
-
-        if (Rec."Last Name" <> '') and ("Date of birth(DOB)" = 0D) then begin
-            Message(DateOfBirthErrorMessage)
-        end;
-        if ("Date of birth(DOB)" <> 0D) and (Rec."Arrival Date" = 0D) then begin
-            Message(ArrivalDateErrorMessage);
-        end;
-        if (Rec."Arrival Date" <> 0D) and (Rec."Departure Date" = 0D) then begin
-            Message(DepartureDateErrorMessage);
-        end;
-        if (Rec."Departure Date" <> 0D) and (Rec.Salary = ' ') then begin
-            Message(SalaryErrorMessage);
-        end;
-        if (Rec.Salary <> ' ') and (Rec."Required Car Type" = Rec."Required Car Type"::" ") then begin
-            Message(RequiredTypeCarErrorMessage);
-        end;
-        if (Rec."Required Car Type" <> Rec."Required Car Type"::" ") and (Rec."Job Site" = Rec."Job Site"::" ") then begin
-            Message(JobSiteErrorType);
-        end;
-    end;
-
-
-
-
 }
+

@@ -28,14 +28,17 @@ page 60106 "Outsorced Employee"
                 {
                     ApplicationArea = All;
                 }
+
                 field("Job Site"; Rec."Job Site")
                 {
                     ApplicationArea = All;
                 }
+
                 field("Arrival Date"; Rec."Arrival Date")
                 {
                     ApplicationArea = All;
                 }
+
                 field("Departure Date"; Rec."Departure Date")
                 {
                     ApplicationArea = All;
