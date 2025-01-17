@@ -1,7 +1,7 @@
 page 60106 "Outsorced Employee"
 {
     ApplicationArea = All;
-    Caption = 'Outsorced Employee';
+    Caption = 'Outsourced Employee';
     PageType = List;
     SourceTable = "Outsourced Employee";
     UsageCategory = Lists;

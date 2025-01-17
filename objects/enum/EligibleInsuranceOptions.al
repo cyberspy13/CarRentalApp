@@ -12,9 +12,9 @@ enum 60105 "Eligible Insurance Options"
         Caption = 'Premium';
     }
 
-    value(2; "STANDART")
+    value(2; "STANDARD")
     {
-        Caption = 'Standart';
+        Caption = 'Standard';
     }
 
     value(3; "DVLA")

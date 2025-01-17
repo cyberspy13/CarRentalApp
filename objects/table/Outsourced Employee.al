@@ -158,7 +158,7 @@ table 60103 "Outsourced Employee"
 
             trigger OnValidate()
             begin
-                CheckAge();
+                CheckAge(Age, Salary);
             end;
         }
 
@@ -168,6 +168,11 @@ table 60103 "Outsourced Employee"
             DataClassification = ToBeClassified;
             NotBlank = true;
             BlankZero = true;
+
+            trigger OnValidate()
+            begin
+                CheckAge(Age, Salary);
+            end;
         }
 
         field(17; "Home Address 2"; Text[70])
@@ -262,19 +267,25 @@ table 60103 "Outsourced Employee"
         Rec.TestField(Salary);
         Rec.TestField("Required Car Type");
         Rec.TestField("Job Site");
-        CheckAge();
+        CheckAge(Age, Salary);
     end;
 
-    local procedure CheckAge()
-    begin
+    local procedure CheckAge(Age: Integer; Salary: Integer)
 
-        if (Age > 18) and (Age < 70) and (Salary > 50000) and (Salary < 100000) then begin
-            "Eligible Insurance Options" := "Eligible Insurance Options"::STANDART;
+    begin
+        if Age < 18 then begin
+            "Eligible Insurance Options" := "Eligible Insurance Options"::" ";
         end;
-        if (Age > 18) and (Age < 70) and (Rec.Salary > 100000) then begin
-            "Eligible Insurance Options" := "Eligible Insurance Options"::PREMIUM;
+        if (Age > 18) and (Age < 70) then begin
+            if (Salary > 50000) and (Salary < 100000) then begin
+                "Eligible Insurance Options" := "Eligible Insurance Options"::STANDARD;
+            end;
+            if (Salary > 100000) then begin
+                "Eligible Insurance Options" := "Eligible Insurance Options"::PREMIUM;
+            end;
         end;
-        if (Rec.Age < 70) then begin
+
+        if (Age > 70) then begin
             "Eligible Insurance Options" := "Eligible Insurance Options"::DVLA;
         end;
     end;
