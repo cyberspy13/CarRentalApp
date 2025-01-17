@@ -9,16 +9,16 @@ enum 60105 "Eligible Insurance Options"
 
     value(1; "PREMIUM")
     {
-        Caption = 'Premium package';
+        Caption = 'Premium';
     }
 
-    value(2; "SUNSET")
+    value(2; "STANDART")
     {
-        Caption = 'Sunset package';
+        Caption = 'Standart';
     }
 
-    value(3; "STANDART")
+    value(3; "DVLA")
     {
-        Caption = 'Standart package';
+        Caption = 'DVLA';
     }
 }

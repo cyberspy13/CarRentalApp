@@ -46,7 +46,23 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Eligible Insurance Options';
             DataClassification = ToBeClassified;
-            //Editable = false;
+            Editable = true;
+            trigger OnValidate()
+            var
+
+                PremiumErrMessage: Label 'Premium insurance option is not alllowed for this employee. Please check/amend the person salary.';
+                DvlaErrMessage: Label 'Please check the employee vision with DVLA.';
+            begin
+
+                if (Age > 18) and (Age < 70) and (Rec.Salary < 100000) and ("Eligible Insurance Options" = "Eligible Insurance Options"::PREMIUM)
+                 then begin
+                    Error(PremiumErrMessage);
+                end;
+
+                If (Rec.Age > 70) then begin
+                    Error(DvlaErrMessage);
+                end;
+            end;
         }
 
         field(8; "Home Address"; Text[70])
@@ -76,7 +92,7 @@ table 60103 "Outsourced Employee"
             end;
         }
 
-        field(11; "LinkedIn Profile"; Text[50])
+        field(11; "LinkedIn Profile"; Text[100])
         {
             Caption = 'LinkedIn Profile';
             DataClassification = ToBeClassified;
@@ -87,6 +103,35 @@ table 60103 "Outsourced Employee"
             Caption = 'Date of Birth';
             DataClassification = ToBeClassified;
             NotBlank = true;
+
+            trigger OnValidate()
+            var
+                TodaysDate: Date;
+                YearsDifference: Integer;
+                AgeInYears: Integer;
+            begin
+
+                TodaysDate := Today();
+                if Rec."Date of birth(DOB)" <> 0D then begin
+                    YearsDifference := Date2DMY(TodaysDate, 3) - Date2DMY(Rec."Date of birth(DOB)", 3); // Calculate year difference
+                                                                                                        //Date2DMY - This is an integer that specifies which part of the date you want to extract:
+                                                                                                        //1 for Day
+                                                                                                        //2 for Month
+                                                                                                        //3 for Year
+
+                    // Check if the current date is before the birthday in this year
+                    if (Date2DMY(TodaysDate, 1) < Date2DMY(Rec."Date of birth(DOB)", 1)) or
+                       ((Date2DMY(TodaysDate, 1) = Date2DMY(Rec."Date of birth(DOB)", 1)) and
+                        (Date2DMY(TodaysDate, 2) < Date2DMY(Rec."Date of birth(DOB)", 2))) then begin
+                        AgeInYears := YearsDifference - 1; // Adjust if today's date hasn't reached birthday yet this year
+                        Rec.Age := AgeInYears;
+                    end else begin
+                        AgeInYears := YearsDifference; // No adjustment needed if birthday has passed this year
+                        Rec.Age := AgeInYears;
+                    end;
+
+                end;
+            end;
         }
 
         field(13; "Arrival Date"; Date)
@@ -107,8 +152,14 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Employee Age';
             DataClassification = ToBeClassified;
-            NotBlank = true;
+            //NotBlank = true;
             BlankZero = true;
+            Editable = true;
+
+            trigger OnValidate()
+            begin
+                CheckAge();
+            end;
         }
 
         field(16; Salary; Integer)
@@ -199,10 +250,7 @@ table 60103 "Outsourced Employee"
         {
             Clustered = true;
         }
-        // key(Key2; "First Name", "Last Name")
-        // {
 
-        // }
     }
     trigger OnInsert()
     begin
@@ -214,6 +262,21 @@ table 60103 "Outsourced Employee"
         Rec.TestField(Salary);
         Rec.TestField("Required Car Type");
         Rec.TestField("Job Site");
+        CheckAge();
+    end;
+
+    local procedure CheckAge()
+    begin
+
+        if (Age > 18) and (Age < 70) and (Salary > 50000) and (Salary < 100000) then begin
+            "Eligible Insurance Options" := "Eligible Insurance Options"::STANDART;
+        end;
+        if (Age > 18) and (Age < 70) and (Rec.Salary > 100000) then begin
+            "Eligible Insurance Options" := "Eligible Insurance Options"::PREMIUM;
+        end;
+        if (Rec.Age < 70) then begin
+            "Eligible Insurance Options" := "Eligible Insurance Options"::DVLA;
+        end;
     end;
 }
 

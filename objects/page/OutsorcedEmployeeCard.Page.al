@@ -12,6 +12,13 @@ page 60107 "Outsorced Employee Card"
             {
                 Caption = 'General';
 
+                 field("Driving License No."; Rec."Driving License No.")
+                {
+                    ApplicationArea = ALl;
+                    ToolTip = 'Enter the Driving License of the employee. This field is mandatory.';
+                    ShowMandatory = true;
+                }
+
                 field("First Name"; Rec."First Name")
                 {
                     ApplicationArea = ALl;
@@ -184,14 +191,7 @@ page 60107 "Outsorced Employee Card"
                     ToolTip = 'Enter the Job Site. This field is mandatory.';
                     ShowMandatory = true;
                 }
-
-                field("Driving License No."; Rec."Driving License No.")
-                {
-                    ApplicationArea = ALl;
-                    ToolTip = 'Enter the Driving License of the employee. This field is mandatory.';
-                    ShowMandatory = true;
-                }
-
+               
                 field("Eligible Insurance Options"; Rec."Eligible Insurance Options")
                 {
                     ApplicationArea = ALl;
@@ -201,6 +201,26 @@ page 60107 "Outsorced Employee Card"
             }
         }
     } 
+    actions
+    {
+        area(Processing)
+        {
+            action("Find Car")
+            {
+                ApplicationArea = All;
+                Caption = 'Find Car';
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = BookingsLogo;
+
+                trigger OnAction()
+                begin
+
+                end;
+            }
+        }
+
+    }
 }
 
        

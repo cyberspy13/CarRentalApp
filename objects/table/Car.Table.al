@@ -127,12 +127,48 @@ table 60100 Car
             BlankZero = true;
             MinValue = 0;
         }
+
         field(16; Currency; Enum Currency)
         {
             Caption = 'Currency';
             DataClassification = ToBeClassified;
             NotBlank = true;
         }
+
+        field(17; "Book Status"; Text[20])
+        {
+            Caption = 'Book Status';
+            DataClassification = ToBeClassified;
+        }
+
+        field(18; "Car Insurance Policy"; Enum "Eligible Insurance Options")
+        {
+            Caption = 'Car Insurance Policy';
+            DataClassification = ToBeClassified;
+
+            trigger OnValidate()
+            var
+                DvlaErrMessage: Label 'You cannot select DVLA option.';
+            begin
+                if "Car Insurance Policy" = Rec."Car Insurance Policy"::DVLA then begin
+                    Error(DvlaErrMessage);
+                end;
+            end;
+        }
+
+        field(19; "Required Employee Car Type"; Enum "Employee Required Car Type")
+        {
+            Caption = 'Car Type';
+            DataClassification = ToBeClassified;
+        }
+
+        field(20; "Car Location"; Enum JobSite)
+        {
+            Caption = 'Vehicle Location';
+            DataClassification = ToBeClassified;
+        }
+
+
     }
 
 

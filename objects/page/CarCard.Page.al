@@ -81,7 +81,28 @@ page 60101 "Car Card"
                 {
                     ApplicationArea = All;
                 }
+
                 field(Currency; Rec.Currency)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Car Insurance Policy"; Rec."Car Insurance Policy")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Required Employee Car Type"; Rec."Required Employee Car Type")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Car Location"; Rec."Car Location")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Book Status"; Rec."Book Status")
                 {
                     ApplicationArea = All;
                 }
