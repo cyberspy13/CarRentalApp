@@ -6,6 +6,7 @@ page 60106 "Outsorced Employee"
     SourceTable = "Outsourced Employee";
     UsageCategory = Lists;
     Editable = false;
+    QueryCategory = 'Outsourced Employee';
     CardPageId = "Outsorced Employee Card";
 
     layout
@@ -51,4 +52,9 @@ page 60106 "Outsorced Employee"
             }
         }
     }
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+
+    end;
 }

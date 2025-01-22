@@ -83,6 +83,22 @@ page 60100 "Car List"
                 {
                     ApplicationArea = All;
                 }
+                field("Car Insurance Policy"; Rec."Car Insurance Policy")
+                {
+                    ApplicationArea = All;
+                }
+                field("Car Location"; Rec."Car Location")
+                {
+                    ApplicationArea = All;
+                }
+                field("Required Employee Car Type"; Rec."Required Employee Car Type")
+                {
+                    ApplicationArea = All;
+                }
+                field("Book Status"; Rec."Book Status")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
 

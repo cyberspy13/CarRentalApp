@@ -12,7 +12,7 @@ page 60107 "Outsorced Employee Card"
             {
                 Caption = 'General';
 
-                 field("Driving License No."; Rec."Driving License No.")
+                field("Driving License No."; Rec."Driving License No.")
                 {
                     ApplicationArea = ALl;
                     ToolTip = 'Enter the Driving License of the employee. This field is mandatory.';
@@ -55,7 +55,7 @@ page 60107 "Outsorced Employee Card"
                 field("Arrival Date"; Rec."Arrival Date")
                 {
                     ApplicationArea = ALl;
-                     ToolTip = 'Enter the Arrival Date of the employee. This field is mandatory.';
+                    ToolTip = 'Enter the Arrival Date of the employee. This field is mandatory.';
                     ShowMandatory = true;
                 }
 
@@ -191,7 +191,7 @@ page 60107 "Outsorced Employee Card"
                     ToolTip = 'Enter the Job Site. This field is mandatory.';
                     ShowMandatory = true;
                 }
-               
+
                 field("Eligible Insurance Options"; Rec."Eligible Insurance Options")
                 {
                     ApplicationArea = ALl;
@@ -200,7 +200,7 @@ page 60107 "Outsorced Employee Card"
                 }
             }
         }
-    } 
+    }
     actions
     {
         area(Processing)
@@ -208,19 +208,24 @@ page 60107 "Outsorced Employee Card"
             action("Find Car")
             {
                 ApplicationArea = All;
-                Caption = 'Find Car';
+                Caption = 'Book Car';
                 Promoted = true;
                 PromotedCategory = Process;
                 Image = BookingsLogo;
 
                 trigger OnAction()
-                begin
-
-                end;
+               begin
+                Message('Executing Find Car action');
+                ExecuteQuery.Run();
+                Message('Finished executing Find Car action');
+               end;
+                
+                
             }
         }
-
     }
+    var
+    ExecuteQuery: Codeunit "Car Find Codeunit";
 }
 
        

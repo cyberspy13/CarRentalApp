@@ -142,7 +142,7 @@ page 60101 "Car Card"
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
-                Image = Track;
+                Image = Find;
 
                 trigger OnAction()
                 var

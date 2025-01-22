@@ -52,6 +52,7 @@ table 60103 "Outsourced Employee"
 
                 PremiumErrMessage: Label 'Premium insurance option is not alllowed for this employee. Please check/amend the person salary.';
                 DvlaErrMessage: Label 'Please check the employee vision with DVLA.';
+                AgeValidationError: Label 'Please amend your age to select DVLA';
             begin
 
                 if (Age > 18) and (Age < 70) and (Rec.Salary < 100000) and ("Eligible Insurance Options" = "Eligible Insurance Options"::PREMIUM)
@@ -61,6 +62,9 @@ table 60103 "Outsourced Employee"
 
                 If (Rec.Age > 70) then begin
                     Error(DvlaErrMessage);
+                end;
+                if (Rec.Age < 70) and ("Eligible Insurance Options" = "Eligible Insurance Options"::DVLA) then begin
+                    Error(AgeValidationError);
                 end;
             end;
         }
@@ -89,6 +93,7 @@ table 60103 "Outsourced Employee"
                 if StrLen("Driving License No.") <> 15 then begin
                     Message(DrivingLicenseNoErrorMessage)
                 end;
+                AvailableCarsQuery();
             end;
         }
 
@@ -275,9 +280,10 @@ table 60103 "Outsourced Employee"
     begin
         if Age < 18 then begin
             "Eligible Insurance Options" := "Eligible Insurance Options"::" ";
+            Message('The employee have to obtained Driving License first')
         end;
-        if (Age > 18) and (Age < 70) then begin
-            if (Salary > 50000) and (Salary < 100000) then begin
+        if (Age >= 18) and (Age < 70) then begin
+            if (Salary >= 50000) and (Salary <= 100000) then begin
                 "Eligible Insurance Options" := "Eligible Insurance Options"::STANDARD;
             end;
             if (Salary > 100000) then begin
@@ -285,9 +291,19 @@ table 60103 "Outsourced Employee"
             end;
         end;
 
-        if (Age > 70) then begin
+        if (Age >= 70) then begin
             "Eligible Insurance Options" := "Eligible Insurance Options"::DVLA;
         end;
     end;
+
+    local procedure AvailableCarsQuery()
+    var
+    //AvailableCarsQuery: Query "Available Cars";
+    //DrivingLicenseNo: Code[15];
+    begin
+        //DrivingLicenseNo := "Driving License No.";
+        Rec.SetRange("Driving License No.", Rec."Driving License No.");
+    end;
+
 }
 

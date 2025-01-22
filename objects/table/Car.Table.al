@@ -135,7 +135,7 @@ table 60100 Car
             NotBlank = true;
         }
 
-        field(17; "Book Status"; Text[20])
+        field(17; "Book Status"; Enum BookedStatus)
         {
             Caption = 'Book Status';
             DataClassification = ToBeClassified;
@@ -143,7 +143,7 @@ table 60100 Car
 
         field(18; "Car Insurance Policy"; Enum "Eligible Insurance Options")
         {
-            Caption = 'Car Insurance Policy';
+            Caption = 'Insurance Policy';
             DataClassification = ToBeClassified;
 
             trigger OnValidate()
@@ -174,10 +174,15 @@ table 60100 Car
 
     keys
     {
-        key(Key1; "Vehicle ID No.")
+        key(PK; "Vehicle ID No.")
         {
             Clustered = true;
         }
+        key(FK; "Car Location")
+        {
+
+        }
+
     }
 
 }
