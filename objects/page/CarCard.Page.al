@@ -45,6 +45,7 @@ page 60101 "Car Card"
                 field(Year; Rec.Year)
                 {
                     ApplicationArea = ALl;
+                    ShowMandatory = true;
                 }
 
                 field("Drive Type"; Rec."Drive Type")
@@ -90,21 +91,25 @@ page 60101 "Car Card"
                 field("Car Insurance Policy"; Rec."Car Insurance Policy")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field("Required Employee Car Type"; Rec."Required Employee Car Type")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field("Car Location"; Rec."Car Location")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field("Book Status"; Rec."Book Status")
                 {
                     ApplicationArea = All;
+
                 }
 
             }
@@ -129,7 +134,6 @@ page 60101 "Car Card"
                 ApplicationArea = All;
             }
         }
-
     }
 
     actions
@@ -148,27 +152,31 @@ page 60101 "Car Card"
                 var
                     MileageUpdateReport: Report "Mileage Update";
                 begin
-                    MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
-                    MileageUpdateReport.Run();
+                    if Rec."Book Status" = Rec."Book Status"::Booked then begin
+                        Message('We cannot modify the mileage of the vehicle. The car is already booked');
+                    end else begin
+                        MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
+                        MileageUpdateReport.Run();
+                    end;
+                end;
+            }
+            action("Book Car")
+            {
+                Caption = 'Book Car';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = BreakRulesOff;
+
+                trigger OnAction()
+                var
+                    CarCardRecord: Record "Car";
+                begin
+                    CarCardRecord.Get(Rec."Vehicle ID No.");
+                    CarCardRecord.BookStatusProcedure();
                 end;
 
             }
-            // action("Main Driver Details")
-            // {
-            //     Caption = 'Main driver Details';
-            //     ApplicationArea = All;
-            //     Promoted = true;
-            //     PromotedCategory = Process;
-            //     Image = ViewDetails;
-
-            //     trigger OnAction()
-            //     var
-            //         MainDriverDetails: Page MainDriverDetailsPage;
-            //     begin
-
-            //         MainDriverDetails.Run();
-            //     end;
-            // }
             group(PrintSend)
             {
                 Caption = 'Print/Send';
@@ -181,17 +189,12 @@ page 60101 "Car Card"
 
                     trigger OnAction()
                     var
-                        //PrintCarReportWORD: report "Print Car Report WORD";
-                        //PrintCarReportRDLC: report "Print Car Record RDLC";
                         PrintCarReport: Report "Print Car Report";
                     begin
                         Rec.SetRange("Vehicle ID No.", Rec."Vehicle ID No.");
                         PrintCarReport.SetTableView(Rec);
                         PrintCarReport.Run();
-                        //PrintCarReportWORD.SetTableView(Rec);
-                        //PrintCarReportRDLC.SetTableView(Rec);
-                        //PrintCarReportWORD.Run();
-                        //PrintCarReportRDLC.Run();
+
                     end;
 
                 }

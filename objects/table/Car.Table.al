@@ -17,9 +17,9 @@ table 60100 Car
             begin
                 if StrLen("Vehicle ID No.") <> 17 then
                     Error(VINErrMessage);
+                "Book Status" := "Book Status"::"Not Booked";
             end;
         }
-
         field(2; Brand; Code[20])
         {
             Caption = 'Brand';
@@ -128,10 +128,11 @@ table 60100 Car
             MinValue = 0;
         }
 
-        field(16; Currency; Enum Currency)
+        field(16; Currency; Code[10])
         {
             Caption = 'Currency';
             DataClassification = ToBeClassified;
+            TableRelation = Currency.Code;
             NotBlank = true;
         }
 
@@ -139,12 +140,14 @@ table 60100 Car
         {
             Caption = 'Book Status';
             DataClassification = ToBeClassified;
+            Editable = true;
         }
 
         field(18; "Car Insurance Policy"; Enum "Eligible Insurance Options")
         {
             Caption = 'Insurance Policy';
             DataClassification = ToBeClassified;
+            NotBlank = true;
 
             trigger OnValidate()
             var
@@ -160,29 +163,47 @@ table 60100 Car
         {
             Caption = 'Car Type';
             DataClassification = ToBeClassified;
+            NotBlank = true;
         }
 
-        field(20; "Car Location"; Enum JobSite)
+        field(20; "Car Location"; Text[30])
         {
             Caption = 'Vehicle Location';
             DataClassification = ToBeClassified;
+            tableRelation = "Vehicle Location".Description;
+            NotBlank = true;
         }
-
-
     }
-
-
     keys
     {
         key(PK; "Vehicle ID No.")
         {
             Clustered = true;
         }
-        key(FK; "Car Location")
-        {
-
-        }
-
     }
+    procedure FindVehicle(Insurance: Enum "Eligible Insurance Options"; RequiredCarType: Enum "Employee Required Car Type"; JobSite: Text[30])
+    var
+        CarRecordPage: Page "Car List";
+        CarRecord: Record "Car";
+    begin
+        CarRecord.SetRange("Required Employee Car Type", RequiredCarType);
+        CarRecord.SetRange("Car Insurance Policy", Insurance);
+        CarRecord.SetRange("Car Location", JobSite);
+        CarRecord.SetRange("Book Status", "Book Status"::"Not Booked");
 
+        CarRecordPage.SetTableView(CarRecord);
+        CarRecordPage.RunModal();
+    end;
+
+    procedure BookStatusProcedure();
+    var
+        PassVinValue: Record "Outsourced Employee";
+    begin
+        if Rec."Book Status" = "Book Status"::"Not Booked" then begin
+            Rec."Book Status" := "Book Status"::"Booked";
+            Rec.Modify;
+            PassVinValue."Rented Car" := Rec."Vehicle ID No.";
+            PassVinValue."Rented Status" := PassVinValue."Rented Status"::Yes;
+        end;
+    end;
 }

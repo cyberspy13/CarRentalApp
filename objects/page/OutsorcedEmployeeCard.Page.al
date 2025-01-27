@@ -185,7 +185,7 @@ page 60107 "Outsorced Employee Card"
                     ShowMandatory = true;
                 }
 
-                field("Job Site"; Rec."Job Site")
+                field("Job Site"; rec."Job Site")
                 {
                     ApplicationArea = ALl;
                     ToolTip = 'Enter the Job Site. This field is mandatory.';
@@ -198,6 +198,10 @@ page 60107 "Outsorced Employee Card"
                     ToolTip = 'Enter the Eligible Insurance Options. This field is mandatory.';
                     ShowMandatory = true;
                 }
+                field("Rented Status";Rec."Rented Status")
+                {
+                    ApplicationArea = ALl;
+                }
             }
         }
     }
@@ -205,27 +209,34 @@ page 60107 "Outsorced Employee Card"
     {
         area(Processing)
         {
-            action("Find Car")
+            action("Book Car")
             {
                 ApplicationArea = All;
-                Caption = 'Book Car';
+                Caption = 'Find Car';
                 Promoted = true;
                 PromotedCategory = Process;
-                Image = BookingsLogo;
+                Image = Find;
 
                 trigger OnAction()
-               begin
-                Message('Executing Find Car action');
-                ExecuteQuery.Run();
-                Message('Finished executing Find Car action');
-               end;
+                var
+                CarRecord: Record Car;
+                begin
+                    if Rec."Rented Status"= Rec."Rented Status"::Yes then begin
+                        Message('The car is booked');
+                    end else begin
+                CarRecord.FindVehicle(Rec."Eligible Insurance Options", Rec."Required Car Type", Rec."Job Site");
+                //BookCar.BookCarProcedure(Rec);
+                    end;
+               
+                end;
+               
                 
                 
             }
         }
     }
     var
-    ExecuteQuery: Codeunit "Car Find Codeunit";
+    //BookCar: Codeunit "Book Car Codeunit";
 }
 
        

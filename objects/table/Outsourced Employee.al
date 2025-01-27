@@ -93,7 +93,6 @@ table 60103 "Outsourced Employee"
                 if StrLen("Driving License No.") <> 15 then begin
                     Message(DrivingLicenseNoErrorMessage)
                 end;
-                AvailableCarsQuery();
             end;
         }
 
@@ -228,10 +227,11 @@ table 60103 "Outsourced Employee"
             DataClassification = ToBeClassified;
         }
 
-        field(25; "Job Site"; Enum "JobSite")
+        field(25; "Job Site"; Text[30])
         {
             Caption = 'Job Site';
             DataClassification = ToBeClassified;
+            TableRelation = "Vehicle Location".Description;
             NotBlank = true;
         }
 
@@ -252,6 +252,19 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Address';
             DataClassification = ToBeClassified;
+        }
+
+        field(29; "Rented Status"; Enum RentedStatus)
+        {
+            Caption = 'Rented Status';
+            DataClassification = ToBeClassified;
+            //Editable = false;
+        }
+
+        field(30; "Rented Car"; Code[17])
+        {
+            DataClassification = ToBeClassified;
+            //TableRelation = Car;
         }
     }
     keys
@@ -296,14 +309,11 @@ table 60103 "Outsourced Employee"
         end;
     end;
 
-    local procedure AvailableCarsQuery()
-    var
-    //AvailableCarsQuery: Query "Available Cars";
-    //DrivingLicenseNo: Code[15];
-    begin
-        //DrivingLicenseNo := "Driving License No.";
-        Rec.SetRange("Driving License No.", Rec."Driving License No.");
-    end;
+    // procedure CheckVinValue(VinValue: code[17])
+    // begin
+    //     VinValue := Rec."Rented Car";
+    //     Rec."Rented Status" := "Rented Status"::Yes;
 
+    // end;
 }
 
