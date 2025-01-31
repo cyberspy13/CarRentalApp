@@ -1,8 +1,8 @@
-page 60107 "Outsorced Employee Card"
+page 60107 "Driver Card"
 {
     ApplicationArea = All;
     PageType = Card;
-    SourceTable = "Outsourced Employee";
+    SourceTable = "Driver";
 
     layout
     {
@@ -82,7 +82,7 @@ page 60107 "Outsorced Employee Card"
                 {
                     ApplicationArea = ALl;
                     ToolTip = 'Enter the Salary of the employee.';
-                    ShowMandatory = true;
+                    
                 }
             }
             group("Home Address & Contact")
@@ -209,7 +209,7 @@ page 60107 "Outsorced Employee Card"
     {
         area(Processing)
         {
-            action("Book Car")
+            action("Find Car")
             {
                 ApplicationArea = All;
                 Caption = 'Find Car';
@@ -220,23 +220,20 @@ page 60107 "Outsorced Employee Card"
                 trigger OnAction()
                 var
                 CarRecord: Record Car;
+                RentalRecord: Record "Rental History";
                 begin
                     if Rec."Rented Status"= Rec."Rented Status"::Yes then begin
                         Message('The car is booked');
-                    end else begin
-                CarRecord.FindVehicle(Rec."Eligible Insurance Options", Rec."Required Car Type", Rec."Job Site");
-                //BookCar.BookCarProcedure(Rec);
+                    end else 
+                    begin
+                    CarRecord.FindVehicle(Rec);
                     end;
-               
                 end;
-               
-                
-                
             }
         }
     }
-    var
-    //BookCar: Codeunit "Book Car Codeunit";
+    // var
+    // BookCar: Codeunit "Book Car Codeunit";
 }
 
        

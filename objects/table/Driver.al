@@ -1,7 +1,8 @@
-table 60103 "Outsourced Employee"
+table 60103 "Driver"
 {
-    Caption = 'Outsourced Employee';
+    Caption = 'Drivers';
     DataClassification = ToBeClassified;
+
 
     fields
     {
@@ -156,9 +157,8 @@ table 60103 "Outsourced Employee"
         {
             Caption = 'Employee Age';
             DataClassification = ToBeClassified;
-            //NotBlank = true;
             BlankZero = true;
-            Editable = true;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -261,11 +261,6 @@ table 60103 "Outsourced Employee"
             //Editable = false;
         }
 
-        field(30; "Rented Car"; Code[17])
-        {
-            DataClassification = ToBeClassified;
-            //TableRelation = Car;
-        }
     }
     keys
     {
@@ -277,18 +272,10 @@ table 60103 "Outsourced Employee"
     }
     trigger OnInsert()
     begin
-        Rec.TestField("First Name");
-        Rec.TestField("Last Name");
-        Rec.TestField("Date of birth(DOB)");
-        Rec.TestField("Arrival Date");
-        Rec.TestField("Departure Date");
-        Rec.TestField(Salary);
-        Rec.TestField("Required Car Type");
-        Rec.TestField("Job Site");
         CheckAge(Age, Salary);
     end;
 
-    local procedure CheckAge(Age: Integer; Salary: Integer)
+    local procedure CheckAge(Age: Integer; Salary: Integer) // put on new table
 
     begin
         if Age < 18 then begin
@@ -309,11 +296,5 @@ table 60103 "Outsourced Employee"
         end;
     end;
 
-    // procedure CheckVinValue(VinValue: code[17])
-    // begin
-    //     VinValue := Rec."Rented Car";
-    //     Rec."Rented Status" := "Rented Status"::Yes;
-
-    // end;
 }
 

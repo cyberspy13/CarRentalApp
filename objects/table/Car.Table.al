@@ -19,6 +19,7 @@ table 60100 Car
                     Error(VINErrMessage);
                 "Book Status" := "Book Status"::"Not Booked";
             end;
+
         }
         field(2; Brand; Code[20])
         {
@@ -173,6 +174,18 @@ table 60100 Car
             tableRelation = "Vehicle Location".Description;
             NotBlank = true;
         }
+        field(21; "Car Renter"; Code[17])
+        {
+            Caption = 'Car Renter';
+            DataClassification = ToBeClassified;
+            //TableRelation = "Driver"."Driving License No.";
+        }
+        field(22; "Driver Car License"; Code[17])
+        {
+            Caption = 'Driver Car License';
+            DataClassification = ToBeClassified;
+            //TableRelation = "Driver"."Driving License No.";
+        }
     }
     keys
     {
@@ -181,29 +194,35 @@ table 60100 Car
             Clustered = true;
         }
     }
-    procedure FindVehicle(Insurance: Enum "Eligible Insurance Options"; RequiredCarType: Enum "Employee Required Car Type"; JobSite: Text[30])
+    procedure FindVehicle(Driver: record Driver)
     var
-        CarRecordPage: Page "Car List";
+        CarRecordList: Page "Car List";
+        CarRecordPage: Page "Car Card";
         CarRecord: Record "Car";
+        BlankCarRenter: Text;
+
     begin
-        CarRecord.SetRange("Required Employee Car Type", RequiredCarType);
-        CarRecord.SetRange("Car Insurance Policy", Insurance);
-        CarRecord.SetRange("Car Location", JobSite);
+        BlankCarRenter := '';
+
+        CarRecord.SetRange("Required Employee Car Type", Driver."Required Car Type");
+        CarRecord.SetRange("Car Insurance Policy", Driver."Eligible Insurance Options");
+        CarRecord.SetRange("Car Location", Driver."Job Site");
+        CarRecord.SetRange("Car Renter", BlankCarRenter);
         CarRecord.SetRange("Book Status", "Book Status"::"Not Booked");
 
-        CarRecordPage.SetTableView(CarRecord);
-        CarRecordPage.RunModal();
+        CarRecordList.SetDriver(Driver."Driving License No.");
+        CarRecordList.SetTableView(CarRecord);
+        CarRecordList.RunModal();
     end;
 
     procedure BookStatusProcedure();
     var
-        PassVinValue: Record "Outsourced Employee";
+        PassVinValue: Record "Driver";
     begin
         if Rec."Book Status" = "Book Status"::"Not Booked" then begin
             Rec."Book Status" := "Book Status"::"Booked";
             Rec.Modify;
-            PassVinValue."Rented Car" := Rec."Vehicle ID No.";
-            PassVinValue."Rented Status" := PassVinValue."Rented Status"::Yes;
+
         end;
     end;
 }

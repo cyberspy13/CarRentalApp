@@ -1,0 +1,29 @@
+Book Car Function - change status to use a calc formula (exists) - e.g. is the mileage field
+
+SOmething like this
+
+  field(50100; "AUK GLAcctName"; Text[100])
+        {
+            Caption = 'G/L Account Name';
+            FieldClass = FlowField;
+            CalcFormula = lookup("G/L Account".Name where("No." = field("No.")));
+            Editable = false;
+        }
+
+CalcFormula:
+
+CalcFormula = lookup("G/L Account".Name where("No." = field("No.")));
+CalcFormula = lookup("G/L Account".Name where("No." = field("No.")));: Defines the calculation formula for this FlowField.
+lookup("G/L Account".Name ...) indicates that it will look up the Name from the "G/L Account" table.
+The condition where("No." = field("No.")) specifies that it will match records in the "G/L Account" table where the "No." field equals the current record's "No." field.
+
+ 
+Store the booking in a new table - don't update car or driver directly.
+ 
+Change "Outsourced employee" to driver.
+
+ 
+You have 2 addresses - add a function "if uk address is the same as home address, copy fields"
+ 
+Eligible conditions to move to condition table
+ 

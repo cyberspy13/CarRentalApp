@@ -109,12 +109,21 @@ page 60101 "Car Card"
                 field("Book Status"; Rec."Book Status")
                 {
                     ApplicationArea = All;
+                }
 
+                field("Car Renter"; Rec."Car Renter")
+                {
+                    ApplicationArea = All;
                 }
 
             }
 
             part("Car Mileage Subform"; "Car Mileage Subform")
+            {
+                ApplicationArea = Basic, Suite;
+                SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
+            }
+            part(RentalHistory; RentalHistory)
             {
                 ApplicationArea = Basic, Suite;
                 SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
@@ -152,9 +161,10 @@ page 60101 "Car Card"
                 var
                     MileageUpdateReport: Report "Mileage Update";
                 begin
-                    if Rec."Book Status" = Rec."Book Status"::Booked then begin
-                        Message('We cannot modify the mileage of the vehicle. The car is already booked');
-                    end else begin
+                    // if Rec."Book Status" = Rec."Book Status"::Booked then begin
+                    //     Message('We cannot modify the mileage of the vehicle. The car is already booked');
+                    // end else 
+                    begin
                         MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
                         MileageUpdateReport.Run();
                     end;
@@ -170,12 +180,10 @@ page 60101 "Car Card"
 
                 trigger OnAction()
                 var
-                    CarCardRecord: Record "Car";
+                    AssignDriverToVehicle: codeunit VehicleAssignment;
                 begin
-                    CarCardRecord.Get(Rec."Vehicle ID No.");
-                    CarCardRecord.BookStatusProcedure();
+                    AssignDriverToVehicle.InsertAssignment(Rec."Car Renter", Rec."Vehicle ID No.");
                 end;
-
             }
             group(PrintSend)
             {
@@ -196,9 +204,11 @@ page 60101 "Car Card"
                         PrintCarReport.Run();
 
                     end;
-
                 }
             }
         }
+
+
     }
+
 }

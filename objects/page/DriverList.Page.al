@@ -1,13 +1,13 @@
-page 60106 "Outsorced Employee"
+page 60106 "Driver List"
 {
     ApplicationArea = All;
-    Caption = 'Outsourced Employee';
+    Caption = 'Drivers';
     PageType = List;
-    SourceTable = "Outsourced Employee";
+    SourceTable = "Driver";
     UsageCategory = Lists;
     Editable = false;
     QueryCategory = 'Outsourced Employee';
-    CardPageId = "Outsorced Employee Card";
+    CardPageId = "Driver Card";
 
     layout
     {
