@@ -26,4 +26,9 @@ Change "Outsourced employee" to driver.
 You have 2 addresses - add a function "if uk address is the same as home address, copy fields"
  
 Eligible conditions to move to condition table
+
+
+this is how can we delete the records from the table
+//CarMileageRec.DeleteAll();
+        //exit;
  

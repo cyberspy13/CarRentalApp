@@ -104,7 +104,7 @@ page 60100 "Car List"
                     ApplicationArea = All;
                 }
 
-                field("Car Renter"; Rec."Car Renter")
+                field("Car Renter"; Rec."Car Renter Driving License")
                 {
                     ApplicationArea = All;
                 }
@@ -150,13 +150,13 @@ page 60100 "Car List"
                     NewFirstNameVar := DriverRecordVar."First Name";
                     NewSecondNameVar := DriverRecordVar."Last Name";
 
-                    if Rec."Car Renter" <> '' then begin
-                        DriverRecordVar.Get(Rec."Car Renter");
+                    if Rec."Car Renter Driving License" <> '' then begin
+                        DriverRecordVar.Get(Rec."Car Renter Driving License");
                         ExistingFirstName := DriverRecordVar."First Name";
                         ExistingSecondName := DriverRecordVar."Last Name";
                         Message('The car is already assigned or with another Driver - %1 %2', ExistingFirstName, ExistingSecondName);
                     end else begin
-                        Rec."Car Renter" := SelectedDriveKey;
+                        Rec."Car Renter Driving License" := SelectedDriveKey;
                         Rec.Modify();
                         Message('The car is assigned to the Driver - %1 %2', NewFirstNameVar, NewSecondNameVar);
                     end;

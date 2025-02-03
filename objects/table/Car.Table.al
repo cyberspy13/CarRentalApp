@@ -174,15 +174,15 @@ table 60100 Car
             tableRelation = "Vehicle Location".Description;
             NotBlank = true;
         }
-        field(21; "Car Renter"; Code[17])
+        field(21; "Car Renter Driving License"; Code[17])
         {
-            Caption = 'Car Renter';
+            Caption = 'Driver Driving License No.';
             DataClassification = ToBeClassified;
             //TableRelation = "Driver"."Driving License No.";
         }
         field(22; "Driver Car License"; Code[17])
         {
-            Caption = 'Driver Car License';
+            Caption = 'Driver Car License No.';
             DataClassification = ToBeClassified;
             //TableRelation = "Driver"."Driving License No.";
         }
@@ -207,7 +207,7 @@ table 60100 Car
         CarRecord.SetRange("Required Employee Car Type", Driver."Required Car Type");
         CarRecord.SetRange("Car Insurance Policy", Driver."Eligible Insurance Options");
         CarRecord.SetRange("Car Location", Driver."Job Site");
-        CarRecord.SetRange("Car Renter", BlankCarRenter);
+        //CarRecord.SetRange("Car Renter Driving License", BlankCarRenter); // need to think about this part  - how can i implement the logic without missing record
         CarRecord.SetRange("Book Status", "Book Status"::"Not Booked");
 
         CarRecordList.SetDriver(Driver."Driving License No.");

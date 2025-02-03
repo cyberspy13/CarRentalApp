@@ -111,7 +111,7 @@ page 60101 "Car Card"
                     ApplicationArea = All;
                 }
 
-                field("Car Renter"; Rec."Car Renter")
+                field("Car Renter Driving License"; Rec."Car Renter Driving License")
                 {
                     ApplicationArea = All;
                 }
@@ -161,9 +161,6 @@ page 60101 "Car Card"
                 var
                     MileageUpdateReport: Report "Mileage Update";
                 begin
-                    // if Rec."Book Status" = Rec."Book Status"::Booked then begin
-                    //     Message('We cannot modify the mileage of the vehicle. The car is already booked');
-                    // end else 
                     begin
                         MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
                         MileageUpdateReport.Run();
@@ -182,8 +179,16 @@ page 60101 "Car Card"
                 var
                     AssignDriverToVehicle: codeunit VehicleAssignment;
                 begin
-                    AssignDriverToVehicle.InsertAssignment(Rec."Car Renter", Rec."Vehicle ID No.");
+                    if (Rec."Car Renter Driving License" <> '') and (Rec."Book Status" = Rec."Book Status"::Booked) then begin
+                        Message('Please update the current mileage and unbook the Driver.');
+                    end else
+                        AssignDriverToVehicle.InsertAssignment(Rec."Car Renter Driving License", Rec."Vehicle ID No.");
+
+
                 end;
+
+
+
             }
             group(PrintSend)
             {

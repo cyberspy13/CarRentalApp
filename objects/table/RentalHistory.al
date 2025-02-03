@@ -87,7 +87,4 @@ table 60106 "Rental History"
         }
 
     }
-
-
-
 }

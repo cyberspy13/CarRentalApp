@@ -21,7 +21,7 @@ codeunit 60101 VehicleAssignment
             LastEntryNo := RentalHistoryRecord."Entry No.";
             RentalHistoryRecord."Entry No." := LastEntryNo + 1;
         end;
-
+        //RentalHistoryRecord.DeleteAll();
         RentalHistoryRecord."Driving License Number" := DriverDetailsRecord."Driving License No.";
         RentalHistoryRecord."First Name" := DriverDetailsRecord."First Name";
         RentalHistoryRecord."Second Name" := DriverDetailsRecord."Last Name";
