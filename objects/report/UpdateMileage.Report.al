@@ -50,6 +50,7 @@ report 60100 "Mileage Update"
             end else begin
                 StartMileage := 0;
             end;
+
         end;
     }
     var
@@ -66,7 +67,6 @@ report 60100 "Mileage Update"
     begin
         CurrentDate := Today();
         SetDefaultUserId();
-
     end;
 
     trigger OnPreReport()
@@ -92,8 +92,6 @@ report 60100 "Mileage Update"
 
         CarMileageRec.CheckMileage();
         CarMileageRec.Insert();
-
-
     end;
 
     procedure SetDefaults(VinNo: code[17])
@@ -105,6 +103,7 @@ report 60100 "Mileage Update"
     begin
         UserId := UserId();
     end;
+
 
 
 

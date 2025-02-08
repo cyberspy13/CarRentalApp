@@ -1,4 +1,4 @@
-Book Car Function - change status to use a calc formula (exists) - e.g. is the mileage field
+Book Car Function - change status to use a calc formula (exists) - e.g. is the mileage field - DONE
 
 SOmething like this
 
@@ -18,14 +18,14 @@ lookup("G/L Account".Name ...) indicates that it will look up the Name from the 
 The condition where("No." = field("No.")) specifies that it will match records in the "G/L Account" table where the "No." field equals the current record's "No." field.
 
  
-Store the booking in a new table - don't update car or driver directly.
+Store the booking in a new table - don't update car or driver directly. - DONE
  
-Change "Outsourced employee" to driver.
+Change "Outsourced employee" to driver. - DONE
 
  
 You have 2 addresses - add a function "if uk address is the same as home address, copy fields"
  
-Eligible conditions to move to condition table
+Eligible conditions to move to condition table -DONE
 
 
 this is how can we delete the records from the table

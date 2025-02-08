@@ -10,10 +10,9 @@ codeunit 60101 VehicleAssignment
         CurrentDate: Date;
     begin
 
-
         DriverDetailsRecord.Get(DriverKey);
         CarDetailsRecord.Get("Vehicle ID No.");
-        //RentalHistoryRecord.Init();
+        //RentalHistoryRecord.Init(); this code is giving new blank record
 
         if not RentalHistoryRecord.FindLast() then begin
             LastEntryNo := 0;
@@ -38,11 +37,8 @@ codeunit 60101 VehicleAssignment
         RentalHistoryRecord."Rented Date" := CurrentDate;
 
         RentalHistoryRecord.Insert(true);
-
         Message('The Car has been booked');
-
         BookStatusProcedure();
-
     end;
 
     procedure BookStatusProcedure();
@@ -51,7 +47,6 @@ codeunit 60101 VehicleAssignment
         if CarDetailsRecord."Book Status" = CarDetailsRecord."Book Status"::"Not Booked" then begin
             CarDetailsRecord."Book Status" := CarDetailsRecord."Book Status"::"Booked";
             CarDetailsRecord.Modify;
-
         end;
     end;
 

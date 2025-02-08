@@ -20,11 +20,13 @@ page 60101 "Car Card"
                 field(Brand; Rec.Brand)
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field(Model; Rec.Model)
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field("Body Type"; Rec."Body Type")
@@ -45,7 +47,6 @@ page 60101 "Car Card"
                 field(Year; Rec.Year)
                 {
                     ApplicationArea = ALl;
-                    ShowMandatory = true;
                 }
 
                 field("Drive Type"; Rec."Drive Type")
@@ -98,6 +99,7 @@ page 60101 "Car Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
                 }
 
                 field("Car Location"; Rec."Car Location")
@@ -160,10 +162,19 @@ page 60101 "Car Card"
                 trigger OnAction()
                 var
                     MileageUpdateReport: Report "Mileage Update";
+                    UnBookDriver: record Car;
                 begin
                     begin
-                        MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
-                        MileageUpdateReport.Run();
+                        if rec."Book Status" = Rec."Book Status"::Booked then begin
+                            MileageUpdateReport.SetDefaults(Rec."Vehicle ID No.");
+                            MileageUpdateReport.Run();
+                            Rec."Book Status" := Rec."Book Status"::"Not Booked";
+                            Rec."Car Renter Driving License" := '';
+                        end else begin
+                            Message('Please book the Driver');
+                        end;
+
+
                     end;
                 end;
             }
@@ -183,12 +194,25 @@ page 60101 "Car Card"
                         Message('Please update the current mileage and unbook the Driver.');
                     end else
                         AssignDriverToVehicle.InsertAssignment(Rec."Car Renter Driving License", Rec."Vehicle ID No.");
-
-
                 end;
+            }
+            action("Unassign Driver")
+            {
+                Caption = 'Unassign Driver';
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = Ranges;
 
-
-
+                trigger OnAction()
+                var
+                    AssignDriverToVehicle: codeunit VehicleAssignment;
+                begin
+                    if Rec."Car Renter Driving License" <> '' then begin
+                        Rec."Book Status" := Rec."Book Status"::"Not Booked";
+                        Rec."Car Renter Driving License" := '';
+                    end
+                end;
             }
             group(PrintSend)
             {

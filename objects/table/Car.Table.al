@@ -141,29 +141,22 @@ table 60100 Car
         {
             Caption = 'Book Status';
             DataClassification = ToBeClassified;
-            Editable = true;
+            Editable = false;
         }
 
-        field(18; "Car Insurance Policy"; Enum "Eligible Insurance Options")
+        field(18; "Car Insurance Policy"; Text[30])
         {
             Caption = 'Insurance Policy';
             DataClassification = ToBeClassified;
+            TableRelation = "Eligible Insurance Options".Description;
             NotBlank = true;
-
-            trigger OnValidate()
-            var
-                DvlaErrMessage: Label 'You cannot select DVLA option.';
-            begin
-                if "Car Insurance Policy" = Rec."Car Insurance Policy"::DVLA then begin
-                    Error(DvlaErrMessage);
-                end;
-            end;
         }
 
-        field(19; "Required Employee Car Type"; Enum "Employee Required Car Type")
+        field(19; "Required Employee Car Type"; Text[50])
         {
             Caption = 'Car Type';
             DataClassification = ToBeClassified;
+            TableRelation = "Employee Required Car Type".Description;
             NotBlank = true;
         }
 
@@ -174,17 +167,18 @@ table 60100 Car
             tableRelation = "Vehicle Location".Description;
             NotBlank = true;
         }
-        field(21; "Car Renter Driving License"; Code[17])
+        field(21; "Car Renter Driving License"; Code[15])
         {
-            Caption = 'Driver Driving License No.';
+            Caption = 'Renter Driving License No.';
             DataClassification = ToBeClassified;
-            //TableRelation = "Driver"."Driving License No.";
+            Editable = false;
+
         }
         field(22; "Driver Car License"; Code[17])
         {
             Caption = 'Driver Car License No.';
             DataClassification = ToBeClassified;
-            //TableRelation = "Driver"."Driving License No.";
+
         }
     }
     keys
@@ -202,27 +196,14 @@ table 60100 Car
         BlankCarRenter: Text;
 
     begin
-        BlankCarRenter := '';
-
+        //BlankCarRenter := '';
         CarRecord.SetRange("Required Employee Car Type", Driver."Required Car Type");
-        CarRecord.SetRange("Car Insurance Policy", Driver."Eligible Insurance Options");
+        CarRecord.SetRange("Car Insurance Policy", Driver.Insurance);
         CarRecord.SetRange("Car Location", Driver."Job Site");
-        //CarRecord.SetRange("Car Renter Driving License", BlankCarRenter); // need to think about this part  - how can i implement the logic without missing record
-        CarRecord.SetRange("Book Status", "Book Status"::"Not Booked");
-
+        //CarRecord.SetRange("Car Renter Driving License", BlankCarRenter);
+        //CarRecord.SetRange("Book Status", "Book Status"::"Not Booked");
         CarRecordList.SetDriver(Driver."Driving License No.");
         CarRecordList.SetTableView(CarRecord);
         CarRecordList.RunModal();
-    end;
-
-    procedure BookStatusProcedure();
-    var
-        PassVinValue: Record "Driver";
-    begin
-        if Rec."Book Status" = "Book Status"::"Not Booked" then begin
-            Rec."Book Status" := "Book Status"::"Booked";
-            Rec.Modify;
-
-        end;
     end;
 }

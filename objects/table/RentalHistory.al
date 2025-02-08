@@ -28,7 +28,7 @@ table 60106 "Rental History"
         {
             Caption = 'Departure Date';
         }
-        field(6; "Car Type"; Enum "Employee Required Car Type")
+        field(6; "Car Type"; Text[50])
         {
             Caption = 'Car Type';
 
@@ -38,7 +38,7 @@ table 60106 "Rental History"
             Caption = 'Location';
 
         }
-        field(8; Insurance; Enum "Eligible Insurance Options")
+        field(8; Insurance; Text[30])
         {
             Caption = 'Insurance';
 

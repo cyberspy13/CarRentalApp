@@ -136,15 +136,6 @@ page 60100 "Car List"
                 PromotedCategory = Process;
                 Image = AnalysisViewDimension;
                 trigger OnAction()
-                var
-                    CarRecordListVar: Page "Car List";
-                    CarRecordPageVar: Page "Car Card";
-                    CarRecordVar: Record "Car";
-                    DriverRecordVar: Record Driver;
-                    NewFirstNameVar: Text[30];
-                    NewSecondNameVar: Text[50];
-                    ExistingFirstName: Text[30];
-                    ExistingSecondName: Text[50];
                 begin
                     DriverRecordVar.Get(SelectedDriveKey);
                     NewFirstNameVar := DriverRecordVar."First Name";
@@ -155,19 +146,51 @@ page 60100 "Car List"
                         ExistingFirstName := DriverRecordVar."First Name";
                         ExistingSecondName := DriverRecordVar."Last Name";
                         Message('The car is already assigned or with another Driver - %1 %2', ExistingFirstName, ExistingSecondName);
+
                     end else begin
-                        Rec."Car Renter Driving License" := SelectedDriveKey;
-                        Rec.Modify();
-                        Message('The car is assigned to the Driver - %1 %2', NewFirstNameVar, NewSecondNameVar);
+
+                        if Rec."Car Renter Driving License" = '' then begin
+
+                            CarRecordVar.SetRange(CarRecordVar."Car Renter Driving License", SelectedDriveKey);
+                            if CarRecordVar.FindSet() then begin
+                                repeat
+                                until CarRecordVar.Next() = 0;
+                            end;
+                        end;
+
+                        if CarRecordVar."Car Renter Driving License" = SelectedDriveKey then begin
+
+                            DriverRecordVar.Get(CarRecordVar."Car Renter Driving License");
+                            DuplicateExistingFirstName := DriverRecordVar."First Name";
+                            DuplicateExistingSecondName := DriverRecordVar."Last Name";
+                            Rec."Car Renter Driving License" := '';
+                            Rec.Modify();
+                            Message('%1 %2 already has a car assigned', DuplicateExistingFirstName, DuplicateExistingSecondName);
+                        end
+                        else begin
+                            Rec."Car Renter Driving License" := SelectedDriveKey;
+                            Rec.Modify();
+                            Message('The car is assigned to the Driver - %1 %2', NewFirstNameVar, NewSecondNameVar);
+                        end;
                     end;
-
                 end;
-
             }
         }
     }
     var
         SelectedDriveKey: Code[15];
+        CarRecordListVar: Page "Car List";
+        CarRecordPageVar: Page "Car Card";
+        CarRecordVar: Record "Car";
+        DriverRecordVar: Record Driver;
+        NewFirstNameVar: Text[30];
+        NewSecondNameVar: Text[50];
+        ExistingFirstName: Text[30];
+        ExistingSecondName: Text[50];
+        DuplicateExistingFirstName: Text[30];
+        DuplicateExistingSecondName: Text[50];
+        TempDrivingLicenseVar: Code[15];
+
 
     procedure SetDriver(DrivingLicenseVar: Code[15])
     begin

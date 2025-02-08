@@ -52,6 +52,65 @@ report 60103 "Print Car Report"
             column(Year; Year)
             {
             }
+            Column(CarRenterDrivingLicense; "Car Renter Driving License")
+            {
+            }
+        }
+        dataitem(Driver; Driver)
+        {
+            // DataItemLink = "Driving License No." = field("Car Renter Driving License");
+
+            DataItemLink = "Driving License No." = field("Car Renter Driving License");
+            DataItemLinkReference = Car;
+
+            column(DrivingLicenseNo; "Driving License No.")
+            {
+            }
+            column(First_Name; "First Name")
+            {
+            }
+            column(Last_Name; "Last Name")
+            {
+            }
+            column(Date_of_birth_DOB_; "Date of birth(DOB)")
+            {
+            }
+            column(Position; Position)
+            {
+            }
+            column(E_Mail; "E-Mail")
+            {
+            }
+            column(Address; Address)
+            {
+            }
+            column(Address_2; "Address 2")
+            {
+            }
+            column(Country_Region_Code; "Country/Region Code")
+            {
+            }
+            column(City; City)
+            {
+            }
+            column(County; County)
+            {
+            }
+            column(Post_Code; "Post Code")
+            {
+            }
+            column(UK_Mobile_Phone_No_; "UK Mobile Phone No.")
+            {
+            }
+            column(Required_Car_Type; "Required Car Type")
+            {
+            }
+            column(Job_Site; "Job Site")
+            {
+            }
+            column(Insurance; Insurance)
+            {
+            }
         }
     }
     rendering

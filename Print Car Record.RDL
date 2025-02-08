@@ -1286,6 +1286,57 @@ XzpKS5BWRtGmpEq0LymUpv0x8EUbkUAb4cCV47kycCUvWSZBT8+SpkbrgkemA8EqlOknGJW3Sm2q/hhU
         <Field Name="Year">
           <DataField>Year</DataField>
         </Field>
+        <Field Name="CarRenterDrivingLicense">
+          <DataField>CarRenterDrivingLicense</DataField>
+        </Field>
+        <Field Name="DrivingLicenseNo">
+          <DataField>DrivingLicenseNo</DataField>
+        </Field>
+        <Field Name="First_Name">
+          <DataField>First_Name</DataField>
+        </Field>
+        <Field Name="Last_Name">
+          <DataField>Last_Name</DataField>
+        </Field>
+        <Field Name="Date_of_birth_DOB_">
+          <DataField>Date_of_birth_DOB_</DataField>
+        </Field>
+        <Field Name="Position">
+          <DataField>Position</DataField>
+        </Field>
+        <Field Name="E_Mail">
+          <DataField>E_Mail</DataField>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
+        <Field Name="Address_2">
+          <DataField>Address_2</DataField>
+        </Field>
+        <Field Name="Country_Region_Code">
+          <DataField>Country_Region_Code</DataField>
+        </Field>
+        <Field Name="City">
+          <DataField>City</DataField>
+        </Field>
+        <Field Name="County">
+          <DataField>County</DataField>
+        </Field>
+        <Field Name="Post_Code">
+          <DataField>Post_Code</DataField>
+        </Field>
+        <Field Name="UK_Mobile_Phone_No_">
+          <DataField>UK_Mobile_Phone_No_</DataField>
+        </Field>
+        <Field Name="Required_Car_Type">
+          <DataField>Required_Car_Type</DataField>
+        </Field>
+        <Field Name="Job_Site">
+          <DataField>Job_Site</DataField>
+        </Field>
+        <Field Name="Insurance">
+          <DataField>Insurance</DataField>
+        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>

@@ -25,7 +25,7 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Home Mobile Phone No."; Integer)
+        field(4; "Home Mobile Phone No."; Text[30])
         {
             Caption = 'Home Mobile Phone No.';
             DataClassification = ToBeClassified;
@@ -43,30 +43,19 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Eligible Insurance Options"; Enum "Eligible Insurance Options")
+        field(7; Insurance; Text[30])
         {
             Caption = 'Eligible Insurance Options';
             DataClassification = ToBeClassified;
             Editable = true;
+            TableRelation = "Eligible Insurance Options".Description;
             trigger OnValidate()
             var
-
-                PremiumErrMessage: Label 'Premium insurance option is not alllowed for this employee. Please check/amend the person salary.';
-                DvlaErrMessage: Label 'Please check the employee vision with DVLA.';
-                AgeValidationError: Label 'Please amend your age to select DVLA';
+                InsuranceTable: record "Eligible Insurance Options";
+                NewInsuranceValue: Text[30];
             begin
-
-                if (Age > 18) and (Age < 70) and (Rec.Salary < 100000) and ("Eligible Insurance Options" = "Eligible Insurance Options"::PREMIUM)
-                 then begin
-                    Error(PremiumErrMessage);
-                end;
-
-                If (Rec.Age > 70) then begin
-                    Error(DvlaErrMessage);
-                end;
-                if (Rec.Age < 70) and ("Eligible Insurance Options" = "Eligible Insurance Options"::DVLA) then begin
-                    Error(AgeValidationError);
-                end;
+                NewInsuranceValue := UpperCase(Insurance);
+                InsuranceTable.GetValidInsurance(Rec, NewInsuranceValue);
             end;
         }
 
@@ -92,7 +81,7 @@ table 60103 "Driver"
                 DrivingLicenseNoErrorMessage: Label 'The length of the Driving License No. should be exactly 15 characters.';
             begin
                 if StrLen("Driving License No.") <> 15 then begin
-                    Message(DrivingLicenseNoErrorMessage)
+                    Error(DrivingLicenseNoErrorMessage)
                 end;
             end;
         }
@@ -159,11 +148,6 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
             BlankZero = true;
             Editable = false;
-
-            trigger OnValidate()
-            begin
-                CheckAge(Age, Salary);
-            end;
         }
 
         field(16; Salary; Integer)
@@ -172,11 +156,6 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
             NotBlank = true;
             BlankZero = true;
-
-            trigger OnValidate()
-            begin
-                CheckAge(Age, Salary);
-            end;
         }
 
         field(17; "Home Address 2"; Text[70])
@@ -221,7 +200,7 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
         }
 
-        field(24; "UK Mobile Phone No."; Integer)
+        field(24; "UK Mobile Phone No."; Text[30])
         {
             Caption = 'UK Mobile Phone No.';
             DataClassification = ToBeClassified;
@@ -235,10 +214,11 @@ table 60103 "Driver"
             NotBlank = true;
         }
 
-        field(26; "Required Car Type"; Enum "Employee Required Car Type")
+        field(26; "Required Car Type"; Text[50])
         {
             Caption = 'Required Car Type';
             DataClassification = ToBeClassified;
+            TableRelation = "Employee Required Car Type".Description;
             NotBlank = true;
         }
 
@@ -254,11 +234,33 @@ table 60103 "Driver"
             DataClassification = ToBeClassified;
         }
 
-        field(29; "Rented Status"; Enum RentedStatus)
+        field(29; "Rented Status"; Enum BookedStatus)
         {
             Caption = 'Rented Status';
-            DataClassification = ToBeClassified;
-            //Editable = false;
+            Editable = false;
+            FieldClass = FlowField;
+            CalcFormula = lookup(Car."Book Status" where("Car Renter Driving License" = field("Driving License No.")));
+        }
+
+        field(30; "Same Address"; Boolean)
+        {
+            Caption = 'Same address';
+
+            trigger OnValidate()
+            begin
+                if not "Same Address" = false then begin
+                    Rec.Address := Rec."Home Address";
+                    Rec."Address 2" := Rec."Home Address 2";
+                    Rec."Country/Region Code" := Rec."Home Country/Region Code";
+                    Rec.City := Rec."Home City";
+                    Rec.County := Rec."Home City";
+                    Rec."Post Code" := Rec."Home Post Code";
+                    Rec."UK Mobile Phone No." := Rec."Home Mobile Phone No."
+
+                end;
+
+
+            end;
         }
 
     }
@@ -270,31 +272,6 @@ table 60103 "Driver"
         }
 
     }
-    trigger OnInsert()
-    begin
-        CheckAge(Age, Salary);
-    end;
-
-    local procedure CheckAge(Age: Integer; Salary: Integer) // put on new table
-
-    begin
-        if Age < 18 then begin
-            "Eligible Insurance Options" := "Eligible Insurance Options"::" ";
-            Message('The employee have to obtained Driving License first')
-        end;
-        if (Age >= 18) and (Age < 70) then begin
-            if (Salary >= 50000) and (Salary <= 100000) then begin
-                "Eligible Insurance Options" := "Eligible Insurance Options"::STANDARD;
-            end;
-            if (Salary > 100000) then begin
-                "Eligible Insurance Options" := "Eligible Insurance Options"::PREMIUM;
-            end;
-        end;
-
-        if (Age >= 70) then begin
-            "Eligible Insurance Options" := "Eligible Insurance Options"::DVLA;
-        end;
-    end;
 
 }
 

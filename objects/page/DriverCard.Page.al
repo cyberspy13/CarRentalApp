@@ -130,6 +130,11 @@ page 60107 "Driver Card"
                     ApplicationArea = ALl;
                     ToolTip = 'Enter the Home Mobile Phone No. of the employee.';
                 }
+
+                field("Sames Address";Rec."Same Address")
+                {
+                    ApplicationArea = All;
+                }
             }
             group("UK Address & Contact")
             {
@@ -192,7 +197,7 @@ page 60107 "Driver Card"
                     ShowMandatory = true;
                 }
 
-                field("Eligible Insurance Options"; Rec."Eligible Insurance Options")
+                field("Eligible Insurance Options";Rec.Insurance)
                 {
                     ApplicationArea = ALl;
                     ToolTip = 'Enter the Eligible Insurance Options. This field is mandatory.';
@@ -200,7 +205,8 @@ page 60107 "Driver Card"
                 }
                 field("Rented Status";Rec."Rented Status")
                 {
-                    ApplicationArea = ALl;
+                    ApplicationArea = ALl;  
+                    ShowMandatory = true;
                 }
             }
         }
@@ -222,9 +228,13 @@ page 60107 "Driver Card"
                 CarRecord: Record Car;
                 RentalRecord: Record "Rental History";
                 begin
-                    if Rec."Rented Status"= Rec."Rented Status"::Yes then begin
-                        Message('The car is booked');
-                    end else 
+                    if Rec."Rented Status"= Rec."Rented Status"::Booked then begin
+                        Message('The car has booking against the Driver - %1 %2', Rec."First Name", Rec."Last Name");
+                    end 
+                    else if UpperCase(Rec.Insurance) ='DVLA' then begin
+                        Message('Please contact DVLA')
+                    end
+                    else
                     begin
                     CarRecord.FindVehicle(Rec);
                     end;
@@ -232,8 +242,6 @@ page 60107 "Driver Card"
             }
         }
     }
-    // var
-    // BookCar: Codeunit "Book Car Codeunit";
 }
 
        
