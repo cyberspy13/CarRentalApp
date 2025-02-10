@@ -99,7 +99,7 @@ table 60100 Car
             MinValue = 0;
             TableRelation = "Car Mileage";
             FieldClass = FlowField;
-            CalcFormula = max("Car Mileage"."End Mileage" where("Vehicle ID No." = field("Vehicle ID No.")));
+            CalcFormula = max("Car Mileage"."End Mileage" where("Car Mileage Vehicle ID No." = field("Vehicle ID No.")));
 
         }
 

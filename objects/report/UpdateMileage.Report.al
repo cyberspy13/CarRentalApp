@@ -44,7 +44,7 @@ report 60100 "Mileage Update"
         }
         trigger OnOpenPage()
         begin
-            CarMileageRec.SetRange("Vehicle ID No.", VehicleIdNo);
+            CarMileageRec.SetRange("Car Mileage Vehicle ID No.", VehicleIdNo);
             if CarMileageRec.FindLast() then begin
                 StartMileage := CarMileageRec."End Mileage";
             end else begin
@@ -83,7 +83,7 @@ report 60100 "Mileage Update"
 
         CarMileageRec.Init();
 
-        CarMileageRec."Vehicle ID No." := VehicleIdNo;
+        CarMileageRec."Car Mileage Vehicle ID No." := VehicleIdNo;
         CarMileageRec."Start Mileage" := StartMileage;
         CarMileageRec."End Mileage" := EndMileage;
         CarMileageRec.Date := CurrentDate;

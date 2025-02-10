@@ -123,7 +123,7 @@ page 60101 "Car Card"
             part("Car Mileage Subform"; "Car Mileage Subform")
             {
                 ApplicationArea = Basic, Suite;
-                SubPageLink = "Vehicle ID No." = field("Vehicle ID No.");
+                SubPageLink = "Car Mileage Vehicle ID No." = field("Vehicle ID No.");
             }
             part(RentalHistory; RentalHistory)
             {

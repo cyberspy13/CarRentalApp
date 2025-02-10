@@ -15,7 +15,7 @@ table 60104 "Car Mileage"
 
         }
 
-        field(2; "Vehicle ID No."; Code[17])
+        field(2; "Car Mileage Vehicle ID No."; Code[17])
         {
             Caption = 'Vehicle ID No.';
             DataClassification = ToBeClassified;
@@ -81,7 +81,7 @@ table 60104 "Car Mileage"
 
         }
 
-        key(Key2; "Vehicle ID No.")
+        key(Key2; "Car Mileage Vehicle ID No.")
         {
 
         }

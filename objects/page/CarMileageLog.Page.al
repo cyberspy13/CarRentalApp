@@ -17,7 +17,7 @@ page 60105 "Car Mileage Log"
                 {
                     ToolTip = 'Specifies the value of the Entry No. field.', Comment = '%';
                 }
-                field("Vehicle ID No."; Rec."Vehicle ID No.")
+                field("Vehicle ID No."; Rec."Car Mileage Vehicle ID No.")
                 {
                     ToolTip = 'Specifies the value of the Vehicle ID No. field.', Comment = '%';
                 }

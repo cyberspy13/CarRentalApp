@@ -55,11 +55,12 @@ report 60103 "Print Car Report"
             Column(CarRenterDrivingLicense; "Car Renter Driving License")
             {
             }
+            column(Currency; Currency)
+            {
+            }
         }
         dataitem(Driver; Driver)
         {
-            // DataItemLink = "Driving License No." = field("Car Renter Driving License");
-
             DataItemLink = "Driving License No." = field("Car Renter Driving License");
             DataItemLinkReference = Car;
 
@@ -111,6 +112,47 @@ report 60103 "Print Car Report"
             column(Insurance; Insurance)
             {
             }
+        }
+        dataitem("Car Mileage"; "Car Mileage")
+        {
+            DataItemLink = "Car Mileage Vehicle ID No." = field("Vehicle ID No.");
+            DataItemLinkReference = Car;
+
+            column(End_Mileage; "End Mileage")
+            {
+            }
+            trigger OnAfterGetRecord()
+            var
+                LastEntryRecord: Record "Car Mileage";
+                CarRecord: Record Car;
+            begin
+                LastEntryRecord.SetRange("Car Mileage Vehicle ID No.", Car."Vehicle ID No.");
+
+                if LastEntryRecord.FindLast() then begin
+                    "End Mileage" := LastEntryRecord."End Mileage";
+                end;
+
+            end;
+        }
+        dataitem("Rental History"; "Rental History")
+        {
+            DataItemLink = "Driving License Number" = field("Car Renter Driving License");
+            DataItemLinkReference = Car;
+
+            column(Rented_Date; "Rented Date")
+            {
+            }
+            trigger OnAfterGetRecord()
+            var
+                LastRentedDateEntry: Record "Rental History";
+            begin
+                LastRentedDateEntry.SetRange("Driving License Number", Car."Car Renter Driving License");
+
+                if LastRentedDateEntry.FindLast()
+                then begin
+                    "Rented Date" := LastRentedDateEntry."Rented Date";
+                end;
+            end;
         }
     }
     rendering

@@ -8,6 +8,7 @@ table 60106 "Rental History"
         field(1; "Driving License Number"; Code[15])
         {
             Caption = 'Driving License Number';
+            DataClassification = ToBeClassified;
         }
         field(2; "First Name"; Text[30])
         {
