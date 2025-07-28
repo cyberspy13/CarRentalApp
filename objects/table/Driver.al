@@ -210,7 +210,7 @@ table 60103 "Driver"
         {
             Caption = 'Job Site';
             DataClassification = ToBeClassified;
-            TableRelation = "Vehicle Location".Description;
+            TableRelation = "Vehicle Location".Code;
             NotBlank = true;
         }
 
@@ -218,7 +218,7 @@ table 60103 "Driver"
         {
             Caption = 'Required Car Type';
             DataClassification = ToBeClassified;
-            TableRelation = "Employee Required Car Type".Description;
+            TableRelation = "Employee Required Car Type".Code;
             NotBlank = true;
         }
 

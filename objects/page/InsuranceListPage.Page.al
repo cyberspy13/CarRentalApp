@@ -2,10 +2,9 @@ page 60110 "Insurance List Page"
 {
     ApplicationArea = All;
     Caption = 'Insurance List';
-    PageType = List;
+    PageType = Card;
     SourceTable = "Eligible Insurance Options";
-    UsageCategory = Lists;
-
+    UsageCategory = Administration;
 
     layout
     {

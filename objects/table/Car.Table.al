@@ -148,7 +148,7 @@ table 60100 Car
         {
             Caption = 'Insurance Policy';
             DataClassification = ToBeClassified;
-            TableRelation = "Eligible Insurance Options".Description;
+            TableRelation = "Eligible Insurance Options".Code;
             NotBlank = true;
         }
 
@@ -156,7 +156,7 @@ table 60100 Car
         {
             Caption = 'Car Type';
             DataClassification = ToBeClassified;
-            TableRelation = "Employee Required Car Type".Description;
+            TableRelation = "Employee Required Car Type".Code;
             NotBlank = true;
         }
 
@@ -164,7 +164,7 @@ table 60100 Car
         {
             Caption = 'Vehicle Location';
             DataClassification = ToBeClassified;
-            tableRelation = "Vehicle Location".Description;
+            tableRelation = "Vehicle Location".Code;
             NotBlank = true;
         }
         field(21; "Car Renter Driving License"; Code[15])

@@ -5,8 +5,7 @@
             "name": "My Server",
             "request": "launch",
             "type": "al",
-            "environmentType": "OnPrem",
-            "server": "http://d365-bc-24/",
+            "server": "http://d365-bc-26",
             "serverInstance": "BC",
             "authentication": "UserPassword",
             "breakOnError": "All",
@@ -18,5 +17,21 @@
             "schemaUpdateMode":"ForceSync",
             "debugServer": 4711
         }
+        // {
+        //     "name": "MLCloud",
+        //     "request": "launch",
+        //     "type": "al",
+        //     "server": "http://d365-bc-26",
+        //     "serverInstance": "BC",
+        //     "authentication": "UserPassword",
+        //     "startupObjectId": 22,
+        //     "startupObjectType": "Page",
+        //     "breakOnError": "All",
+        //     "launchBrowser": true,
+        //     "enableLongRunningSqlStatements": true,
+        //     "enableSqlInformationDebugger": true,
+        //     "tenant": "default",
+        //     "usePublicURLFromServer": true
+        // }
     ]
 }
